@@ -1,2 +1,2 @@
 Download sra files:
-fastq-dump --split-files --option-file <your_accesson list file, containing run ids>
+for var in sra/*.sra; do fastq-dump --outdir fastq --split-3 $var; done
