@@ -35,3 +35,5 @@ sudo apt-get autoremove
 Finally, do a clean so you check everything is correctly removed
 
 sudo apt-get clean
+
+https://docs.nvidia.com/cuda/wsl-user-guide/index.html
