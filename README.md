@@ -37,3 +37,7 @@ Finally, do a clean so you check everything is correctly removed
 sudo apt-get clean
 
 https://docs.nvidia.com/cuda/wsl-user-guide/index.html
+
+
+https://academic.oup.com/femsec/article/90/3/543/536864?login=true
+http://mb3is.megx.net/gustame
