@@ -26,3 +26,7 @@ add missing keys, run the following commands:
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A4B469963BF863CC
 
 sudo apt-get update
+
+
+https://hackmd.io/@Miles/S12SKP115
+https://hackmd.io/@Miles/rkYKDHPsO
