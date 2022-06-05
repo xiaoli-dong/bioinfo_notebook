@@ -1,3 +1,4 @@
+https://www.metagenomics.wiki/tools/short-read/ncbi-sra-file-format/prefetch
 Download sra files using sratoolkit:
 
 mkdir sra
