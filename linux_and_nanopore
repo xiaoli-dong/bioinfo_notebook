@@ -25,3 +25,5 @@ minion01_calgary@rice:~/Downloads$
 minion01_calgary@rice:~/Downloads$ nvidia-detector 
 nvidia-driver-515
 
+reboot solved the above issues
+
