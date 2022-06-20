@@ -1,2 +1,6 @@
 How to Delete Partition in Linux
 https://phoenixnap.com/kb/delete-partition-linux
+
+Format disk, mount the disk, update fstab
+https://www.cyberciti.biz/faq/linux-disk-format/
+sudo mkfs.ext4 /dev/sda
