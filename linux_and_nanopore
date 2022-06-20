@@ -26,4 +26,15 @@ minion01_calgary@rice:~/Downloads$ nvidia-detector
 nvidia-driver-515
 
 reboot solved the above issues
+sudo mv /opt/ont/guppy/bin /opt/ont/guppy/bin.sav  &&    sudo mv /opt/ont/guppy/data /opt/ont/guppy/data.sav      # Save the old guppy just in case
+tar -xvzf ont-guppy_5.0.13_linux64.tar.gz 
+udo cp -r ont-guppy/bin /opt/ont/guppy/bin && sudo cp -r ont-guppy/data /opt/ont/guppy/data # Move the newly downloaded guppy
+#Disable online need for minknow to ping external servers
+sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
+sudo service minknow restart # Resart minknow
+
+
+minion01_calgary@rice:~/Desktop$ sudo service guppyd stop
+Warning: The unit file, source configuration file or drop-ins of guppyd.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+
 
