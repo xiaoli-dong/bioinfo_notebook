@@ -4,3 +4,6 @@ https://phoenixnap.com/kb/delete-partition-linux
 Format disk, mount the disk, update fstab
 https://www.cyberciti.biz/faq/linux-disk-format/
 sudo mkfs.ext4 /dev/sda
+
+Minknow
+https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy
