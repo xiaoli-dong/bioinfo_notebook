@@ -27,3 +27,5 @@ Here is [the reference](https://chrisjean.com/fix-apt-get-update-the-following-s
 # add missing keys, run the following commands:
 xdong@M691822:~$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A4B469963BF863CC
 ```
+How to mount windows network drives in wsl:
+Her is [a short tutorial](https://www.public-health.uiowa.edu/it/support/kb48568/)
