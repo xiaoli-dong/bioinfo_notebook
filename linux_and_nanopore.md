@@ -98,8 +98,10 @@ sudo vi /etc/systemd/system/guppyd.service
 > ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3
 # to 
 > ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
+```
 
-# Do the same for the  /etc/systemd/system/guppyd.service.d/override.conf file
+## Edit the existing override.conf file
+```
 sudo vi /etc/systemd/system/guppyd.service.d/override.conf
 
 # Change the line
