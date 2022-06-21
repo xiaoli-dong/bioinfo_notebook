@@ -1,12 +1,14 @@
-How to use [prefectch](https://www.metagenomics.wiki/tools/short-read/ncbi-sra-file-format/prefetch) from sratoolkit to download data 
+# How to use [prefectch](https://www.metagenomics.wiki/tools/short-read/ncbi-sra-file-format/prefetch) from sratoolkit to download data 
 
-# Download sra files using sratoolkit:
+Download sra files using sratoolkit:
+
 ```
 mkdir sra
 cd sra
- ~/software/sratoolkit/sratoolkit.2.11.0-centos_linux64/bin/prefetch --option-file acc.txt
+prefetch --option-file acc.txt
 for var in sra/*.sra; do fastq-dump --outdir fastq --split-3 $var; done
 ```
+
 # Url used to download metadata
 https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&retmode=json&id=ERR1034587
 
