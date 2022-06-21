@@ -6,7 +6,7 @@ Here is a few references I used to setup wsl on my windows 10, and enabled gpu b
 [Nanopore Guppy GPU basecalling on Windows using WSL2](https://hackmd.io/@Miles/rkYKDHPsO)  
 [nanopore software download](https://community.nanoporetech.com/downloads)  
 
-When I update the system, I got the following error message
+When I updated the system, I got the following error message
 ```
 xdong@M691822:~$ sudo apt-get update
 Get:1 http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease [1575 B]
