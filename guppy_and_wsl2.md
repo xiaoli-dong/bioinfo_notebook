@@ -1,10 +1,9 @@
-CUDA on WSL User Guide
-https://docs.nvidia.com/cuda/wsl-user-guide/index.html
-Nanopore Guppy GPU basecalling on Windows using WSL2
-https://hackmd.io/@Miles/rkYKDHPsO
-nanopore software download
-https://community.nanoporetech.com/downloads
+[CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
+[Nanopore Guppy GPU basecalling on Windows using WSL2](https://hackmd.io/@Miles/rkYKDHPsO)
+[nanopore software download](https://community.nanoporetech.com/downloads)
 
+Error message
+```
 xdong@M691822:~$ sudo apt-get update
 Get:1 http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease [1575 B]
 Hit:2 http://security.ubuntu.com/ubuntu focal-security InRelease
@@ -19,14 +18,7 @@ E: The repository 'http://developer.download.nvidia.com/compute/cuda/repos/ubunt
 N: Updating from such a repository can't be done securely, and is therefore disabled by default.
 N: See apt-secure(8) manpage for repository creation and user configuration details.
 xdong@M691822:~$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A4B469963BF863CC
+```
 
 https://chrisjean.com/fix-apt-get-update-the-following-signatures-couldnt-be-verified-because-the-public-key-is-not-available/
 add missing keys, run the following commands:
-
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A4B469963BF863CC
-
-sudo apt-get update
-
-
-https://hackmd.io/@Miles/S12SKP115
-https://hackmd.io/@Miles/rkYKDHPsO
