@@ -1,11 +1,25 @@
 
-# How to Install Ubuntu Linux on your Dell Computer
+# How to Install Ubuntu Linux on a Dell desktop configured for the Unified Extensible firmware interface (UEFI) BIOS
 https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc
 ## Create a bootable USB flash drive
 1. Download Ubuntu desktop image, the version we are using is [Ubuntu 22.04 LTS](https://ubuntu.com/download/desktop)
 2. Follow the Canonical ubuntu totorials on how to [Create a Bootable USB stick](https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick)
-## Install Ubuntu on a Dell PC Configured for the Unified Extensible Firmware Interface (UEFI) BIOS
-Press the F2 key on start up to enter the BIOS setup screens. Ensure that the BIOS is set to UEFI, and disable the Legacy option ROMS, and disable the secure boot.
+## Boot to BIOS setup screens
+Press the F2 key on start up to enter the BIOS setup screens. Ensure that the BIOS is set to UEFI, and disable the Legacy option ROMS, and enable the secure boot. Here are a few refernce images on how to do it. Please be aware, your BIOS insterface can be a little different:
+
+![image](https://user-images.githubusercontent.com/52679027/174858747-5383538b-bb34-4629-aed3-9b7e84392246.png)
+![image](https://user-images.githubusercontent.com/52679027/174859187-b8cdaab2-f805-4841-b548-547c6f96fd42.png)
+![image](https://user-images.githubusercontent.com/52679027/174859243-39573b11-b01e-43a2-a56b-aa2307b15b37.png)
+
+After change BIOS, please save the change and exit
+
+## Boot from USB flash drive
+1. Insert the USB flash drice into the PC USB port and boot or restart the PC
+2. Tap rapidly on teh F12 key when the logo appears during startup
+3. Select USB device from the boot menu
+
+## Install ubuntu 
+Follow the [CANONICAL ubuntu step by step tutorials](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) to install Ubuntu 
 
 # Formatting the second hard drive
 How to Delete Partition in Linux
