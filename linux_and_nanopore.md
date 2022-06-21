@@ -1,6 +1,8 @@
 
 # How to Install Ubuntu Linux on your Dell Computer
 https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc
+## Create a bootable USB flash drive
+Download Ubuntu desktop image, the version we are using is [Ubuntu 22.04 LTS](https://ubuntu.com/download/desktop)
 
 # Formatting the second hard drive
 How to Delete Partition in Linux
