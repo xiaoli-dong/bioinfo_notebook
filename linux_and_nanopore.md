@@ -29,7 +29,7 @@ A lot of time, you have one ssd drive, in which you intall your operating system
 # Setup MinKNOW with Guppy GPU Basecaller
 I was mainly following [MinKNOW tutrial](https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy) to install MinKNOW, CUDA Toolkit, setup MinKNOW with Guppy GPU Basecaller
 
-## Installing MiinKNOW
+## Installing MinKNOW
 ```
 wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
 echo "deb http://mirror.oxfordnanoportal.com/apt $(lsb_release -c | awk '{print $2}')-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
@@ -53,14 +53,13 @@ nvcc --version
 ```
 ## Setup MinKNOW with Guppy GPU Baseller
 ```
-sudo mv /opt/ont/guppy/bin /opt/ont/guppy/bin.sav  &&    sudo mv /opt/ont/guppy/data /opt/ont/guppy/data.sav      # Save the old guppy just in case
+sudo mv /opt/ont/guppy/bin /opt/ont/guppy/bin.sav && sudo mv /opt/ont/guppy/data /opt/ont/guppy/data.sav # Save the old guppy just in case
 tar -xvzf ont-guppy_5.0.13_linux64.tar.gz 
 sudo cp -r ont-guppy/bin /opt/ont/guppy/bin && sudo cp -r ont-guppy/data /opt/ont/guppy/data # Move the newly downloaded guppy
 sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
-sudo service minknow restart # Resart minknow
 ```
 
-
+sudo service minknow restart # Resart minknow
 
 minion01_calgary@rice:~/Desktop$ sudo service guppyd stop
 Warning: The unit file, source configuration file or drop-ins of guppyd.service changed on disk. Run 'systemctl daemon-reload' to reload units.
