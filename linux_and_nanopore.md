@@ -52,22 +52,61 @@ sudo cp /var/cuda-repo-ubuntu2004-11-7-local/cuda-*-keyring.gpg /usr/share/keyri
 sudo apt-get update
 sudo apt-get -y install cuda
 ```
+
+Then, add these two lines to your $HOME/.bashrc
+
+```
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda/bin:$PATH
+```
+
 You should then **reboot your PC for cuda to take full effect**. Once rebooted, you should confirm that it is working by writing:
 ```
 nvidia-smi
 nvcc --version
 ```
 ## Setup MinKNOW with Guppy GPU Baseller
+Finally, we can start to configure MinKNOW to use a GPU-capable version of guppy and that the guppy basecaller plays nice with the installed MinKNOW.
+
+```
+/opt/ont/minknow/guppy/bin/guppy_basecaller --version
+```
+You should see a version, for example for 5.0.13. You MUST download the same version of the Guppy:
+
 ```
 sudo mv /opt/ont/guppy/bin /opt/ont/guppy/bin.sav && sudo mv /opt/ont/guppy/data /opt/ont/guppy/data.sav # Save the old guppy just in case
 tar -xvzf ont-guppy_5.0.13_linux64.tar.gz 
 sudo cp -r ont-guppy/bin /opt/ont/guppy/bin && sudo cp -r ont-guppy/data /opt/ont/guppy/data # Move the newly downloaded guppy
+#Disable online need for minknow to ping external servers
 sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
+sudo service minknow restart # Resart minknow
 ```
 
-sudo service minknow restart # Resart minknow
+## Edit the existing guppyd service file using 
+```
+sudo vi /etc/systemd/system/guppyd.service
+#change the line
+> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3
+#to 
+> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
 
-minion01_calgary@rice:~/Desktop$ sudo service guppyd stop
-Warning: The unit file, source configuration file or drop-ins of guppyd.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+#Do the same for the  /etc/systemd/system/guppyd.service.d/override.conf file and save it. 
+sudo vi /etc/systemd/system/guppyd.service.d/override.conf
+#change the line
+> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3
+#to 
+> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
+```
+You will also need to adjust the configuration file for guppy by modifying /opt/ont/minknow/conf/app_conf. Adjust the gpu_calling field to true in the JSON, being careful not to modify/delete any commas or quotations. See the reference image below
+![image](https://user-images.githubusercontent.com/52679027/174882635-9dab8d3f-b408-4fb0-9fe8-f15868db745b.png)
 
 
+Now, you need to restart minknow, guppyd
+```
+sudo service minknow stop # Resart minknow
+sudo service guppyd stop
+sudo service guppyd start
+sudo service minknow restart
+```
+From there you are all set to run basecalling directly within the MinKNOW application.
