@@ -1,20 +1,16 @@
-https://www.metagenomics.wiki/tools/short-read/ncbi-sra-file-format/prefetch
-Download sra files using sratoolkit:
+How to use [prefectch](https://www.metagenomics.wiki/tools/short-read/ncbi-sra-file-format/prefetch) from sratoolkit to download data 
 
+# Download sra files using sratoolkit:
+```
 mkdir sra
-
 cd sra
-
  ~/software/sratoolkit/sratoolkit.2.11.0-centos_linux64/bin/prefetch --option-file acc.txt
- 
 for var in sra/*.sra; do fastq-dump --outdir fastq --split-3 $var; done
-
-Download metadata
+```
+# Url used to download metadata
 https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&retmode=json&id=ERR1034587
 
 
-How to mount windows network drives in wsl:
-https://www.public-health.uiowa.edu/it/support/kb48568/
 
 
 You first check out for the name of the package you want to remove:
