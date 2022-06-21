@@ -46,7 +46,7 @@ sudo cp /var/cuda-repo-ubuntu2004-11-7-local/cuda-*-keyring.gpg /usr/share/keyri
 sudo apt-get update
 sudo apt-get -y install cuda
 ```
-You should then **reboot your PC** for everything to take full effect. Once rebooted, you should confirm that it is working by writing:
+You should then **reboot your PC for cuda to take full effect**. Once rebooted, you should confirm that it is working by writing:
 ```
 nvidia-smi
 nvcc --version
