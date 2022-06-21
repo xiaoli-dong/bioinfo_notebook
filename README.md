@@ -10,31 +10,5 @@ for var in sra/*.sra; do fastq-dump --outdir fastq --split-3 $var; done
 # Url used to download metadata
 https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&retmode=json&id=ERR1034587
 
-
-
-
-You first check out for the name of the package you want to remove:
-
-dpkg --list
-
-Then remove the given package
-
-sudo apt-get remove package_name
-
-Purge any related code
-
-sudo apt-get purge package_name
-
-Then Autoremove
-
-sudo apt-get autoremove
-
-Finally, do a clean so you check everything is correctly removed
-
-sudo apt-get clean
-
-https://docs.nvidia.com/cuda/wsl-user-guide/index.html
-
-
-https://academic.oup.com/femsec/article/90/3/543/536864?login=true
-http://mb3is.megx.net/gustame
+# Stats tools
+[GUide to STatistical Analysis in Microbial Ecology](http://mb3is.megx.net/gustame)
