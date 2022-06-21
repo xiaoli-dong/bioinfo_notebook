@@ -120,7 +120,8 @@ sudo vi /etc/systemd/system/guppyd.service.d/override.conf
 > ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
 ```
 
-You will also need to modifying /opt/ont/minknow/conf/app_conf file.  Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below
+## Edit app_conf file  
+You will also need to modifying /opt/ont/minknow/conf/app_conf file. Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below:  
 
 ![Screenshot from 2022-06-21 14-02-38](https://user-images.githubusercontent.com/52679027/174887939-b7b24cfd-54f0-4191-bc7c-791fa767f3ce.png)
 
