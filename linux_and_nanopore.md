@@ -110,9 +110,9 @@ sudo vi /etc/systemd/system/guppyd.service.d/override.conf
 > ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
 ```
 
-You will also need to adjust the configuration file for guppy by modifying /opt/ont/minknow/conf/app_conf. Adjust the gpu_calling field to true in the JSON, being careful not to modify/delete any commas or quotations. See the reference image below
+You will also need to modifying /opt/ont/minknow/conf/app_conf file.  Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below
 
-![image](https://user-images.githubusercontent.com/52679027/174882635-9dab8d3f-b408-4fb0-9fe8-f15868db745b.png)
+![Screenshot from 2022-06-21 14-02-38](https://user-images.githubusercontent.com/52679027/174887939-b7b24cfd-54f0-4191-bc7c-791fa767f3ce.png)
 
 
 After all the changes, restart MinKNOW, Guppyd
@@ -124,3 +124,4 @@ sudo service guppyd start
 sudo service minknow restart
 ```
 From there you are all set to run basecalling directly within the MinKNOW application.
+
