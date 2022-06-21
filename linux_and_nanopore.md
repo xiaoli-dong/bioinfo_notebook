@@ -1,15 +1,17 @@
 
 # Install Ubuntu on a Dell desktop configured for the Unified Extensible firmware interface (UEFI) BIOS
-https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc
+I was using [How to Install Ubuntu Linux on your Dell Computer](https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc) as a reference for Ubuntu setup
+
 ## Create a bootable USB flash drive
 1. Download Ubuntu desktop image, the version we are using is [Ubuntu 22.04 LTS](https://ubuntu.com/download/desktop)
 2. Follow the Canonical ubuntu totorials on how to [Create a Bootable USB stick](https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick)
 ## Boot to BIOS setup screens
-Press the F2 key on start up to enter the BIOS setup screens. Ensure that the BIOS is set to UEFI, and disable the Legacy option ROMS, and enable the secure boot. Here are a few refernce images on how to do it. Please be aware, your BIOS insterface can be a little different:
+Press the F2 key on start up to enter the BIOS setup screens. Ensure that the BIOS is set to UEFI, and disable the Legacy option ROMS, and disable the secure boot. Here are a few refernce images on how to do it. Please be aware, your BIOS insterface can be a little different:
 
 ![image](https://user-images.githubusercontent.com/52679027/174858747-5383538b-bb34-4629-aed3-9b7e84392246.png)
 ![image](https://user-images.githubusercontent.com/52679027/174859187-b8cdaab2-f805-4841-b548-547c6f96fd42.png)
-![image](https://user-images.githubusercontent.com/52679027/174859243-39573b11-b01e-43a2-a56b-aa2307b15b37.png)
+![image](https://user-images.githubusercontent.com/52679027/174892849-f51e928b-cd52-48db-aa48-60b423083427.png)
+
 
 After change BIOS, please save the change and exit
 
@@ -66,6 +68,14 @@ You should then **reboot your PC for cuda to take full effect**. Once rebooted, 
 nvidia-smi
 nvcc --version
 ```
+Sample output from nvidia-smi command:  
+
+![Screenshot from 2022-06-21 14-29-55](https://user-images.githubusercontent.com/52679027/174892221-0cda31c0-e1ea-4a88-abc7-27138a5ff8fe.png)
+
+Sample output from nvcc --version command:  
+![Screenshot from 2022-06-21 14-30-48](https://user-images.githubusercontent.com/52679027/174892486-3c303742-a0ff-4edd-b2ec-0056cdb9ed03.png)
+
+
 ## Setup MinKNOW with Guppy GPU Baseller
 Finally, we can start to configure MinKNOW to use a GPU-capable version of guppy and that the guppy basecaller plays nice with the installed MinKNOW.
 
