@@ -1,8 +1,8 @@
 
-##How to Install Ubuntu Linux on your Dell Computer
+# How to Install Ubuntu Linux on your Dell Computer
 https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc
 
-## formatting the second hard drive
+# Formatting the second hard drive
 How to Delete Partition in Linux
 https://phoenixnap.com/kb/delete-partition-linux
 
@@ -10,10 +10,10 @@ Format disk, mount the disk, update fstab
 https://www.cyberciti.biz/faq/linux-disk-format/
 sudo mkfs.ext4 /dev/sda
 
-## Install Minknow
+# Install Minknow
 https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy
 
-# install cuda
+# Install cuda
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda-repo-ubuntu2004-11-7-local_11.7.0-515.43.04-1_amd64.deb
