@@ -78,7 +78,7 @@ Sample output from nvcc --version command:
 
 
 ## Setup MinKNOW with Guppy GPU Baseller
-Finally, we can start to configure MinKNOW to use a GPU-capable version of guppy and that the guppy basecaller plays nice with the installed MinKNOW.
+Finally, we can start to configure MinKNOW to use a GPU-capable version of guppy and to make the guppy basecaller plays nice with the installed MinKNOW.
 
 ```
 /opt/ont/minknow/guppy/bin/guppy_basecaller --version
