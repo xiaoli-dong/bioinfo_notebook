@@ -43,7 +43,7 @@ Firstly, you need to ensure that your GPU is CUDA-capable by typing:
 ```
 lspci | grep VGA
 ```
-If you see your GPU model, for example: NVIDIA Corporation TU102 [GeForce RTX 2080 Ti] (rev A1) then you have a GPU available on your machine. IF you don’t see that AND you know there is a GPU in the machine try to install the drivers first. Then start to install CUDA Tookit, in my case, I installed [CUDA Toolkit 11.7](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local)
+If you see your GPU model, for example: NVIDIA Corporation TU102 [GeForce RTX 2080 Ti] (rev A1) then you have a GPU available on your machine. IF you don’t see that and you know there is a GPU in the machine, try to install the drivers first. Then start to install CUDA Tookit, in my case, I installed [CUDA Toolkit 11.7](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local)
 
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
