@@ -67,6 +67,8 @@ You should then **reboot your PC for cuda to take full effect**. Once rebooted, 
 nvidia-smi
 nvcc --version
 ```
+* Notes: in my case, in the secure boot mode, those commands were not working properly. After dsiabling secure boot mode in BIOS, they worked.
+
 Sample output from nvidia-smi command:  
 
 ![Screenshot from 2022-06-21 14-29-55](https://user-images.githubusercontent.com/52679027/174892221-0cda31c0-e1ea-4a88-abc7-27138a5ff8fe.png)
