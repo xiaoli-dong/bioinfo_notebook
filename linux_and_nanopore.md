@@ -39,7 +39,7 @@ sudo apt-get -y update
 sudo apt-get install -y minion-nc
 ```
 ## Install cuda
-Firstly, you need to ensure that you GPU is CUDA-capable by typing:
+Firstly, you need to ensure that your GPU is CUDA-capable by typing:
 ```
 lspci | grep VGA
 ```
