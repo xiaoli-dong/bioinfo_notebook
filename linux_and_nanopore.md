@@ -55,10 +55,11 @@ sudo apt-get update
 sudo apt-get -y install cuda
 ```
 
-Then, add these two lines to your $HOME/.bashrc
+Then, add these three lines to your $HOME/.bashrc
 
 ```
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export PATH=/usr/local/cuda/bin:$PATH
 ```
 
