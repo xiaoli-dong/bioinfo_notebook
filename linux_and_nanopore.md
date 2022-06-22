@@ -31,7 +31,7 @@ A lot of time, you have one ssd drive, in which you intall your operating system
 # Setup MinKNOW with Guppy GPU Basecaller
 I was mainly using [MinKNOW tutrial](https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy) as a reference to install MinKNOW, CUDA Toolkit, setup MinKNOW with Guppy GPU Basecaller
 
-## Installing MinKNOW
+## Install MinKNOW
 ```
 wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
 echo "deb http://mirror.oxfordnanoportal.com/apt $(lsb_release -c | awk '{print $2}')-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
@@ -58,8 +58,7 @@ sudo apt-get -y install cuda
 Then, add these two lines to your $HOME/.bashrc
 
 ```
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64\
-                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export PATH=/usr/local/cuda/bin:$PATH
 ```
 
