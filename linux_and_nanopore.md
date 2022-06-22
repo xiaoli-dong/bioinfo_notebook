@@ -17,7 +17,7 @@ After change BIOS, please save the change and exit
 
 ## Boot from USB flash drive
 1. Insert the USB flash drice into the PC USB port and boot or restart the PC
-2. Tap rapidly on teh F12 key when the logo appears during startup
+2. Tap rapidly on the F12 key when the logo appears during startup
 3. Select USB device from the boot menu
 
 ## Install ubuntu 
