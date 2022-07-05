@@ -29,7 +29,7 @@ A lot of time, you have one ssd drive, in which you install your operating syste
 * [Format disk, mount the disk, update fstab](https://www.cyberciti.biz/faq/linux-disk-format/)
 
 # Setup MinKNOW with Guppy GPU Basecaller
-I was mainly using [MinKNOW tutrial](https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy) as a reference to install MinKNOW, CUDA Toolkit, setup MinKNOW with Guppy GPU Basecaller
+I was mainly using [MinKNOW tutorial](https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy) as a reference to install MinKNOW, CUDA Toolkit, setup MinKNOW with Guppy GPU Basecaller
 
 ## Install MinKNOW
 ```
