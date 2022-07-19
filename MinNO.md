@@ -3,7 +3,7 @@
 ```
 flye --nano-raw nanopore_reads/br_all.porechop.fastq --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
 ```
-# Nanopore long reads polish
+# Nanopore assembled contig polish - long reads polish
 racon polish and medaka consensus calling script I created for ciliates. you can save it as a file and submit it to synergy cluster using command: "bsub < filename"
 ```
 #!/usr/bin/env bash
@@ -39,7 +39,7 @@ echo "End: `date`; RC=$?"
 
 ```
 # short reads polish using pilon
-
+Nanopore assembled contig polish - short reads polish
 ```
 #!/usr/bin/env bash
 
@@ -52,7 +52,7 @@ echo "End: `date`; RC=$?"
 
 echo "Start: `date`"
 
-#illumina pilon polish
+# illumina pilon polish
 
 #round1
 /gpfs/ebg_data/programs/bwa/bwa index ../racon_polish/medaka/consensus.fasta
