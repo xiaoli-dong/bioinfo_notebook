@@ -1,0 +1,88 @@
+#!/usr/local/bin/perl
+
+use strict;
+use warnings;
+
+@ARGV > 2
+  or die
+"Usage: $0 <file of args to iterate> <# concurrent> <cmd> [cmdarg1...] {} [...]\n";
+my $argfile    = shift @ARGV;
+my $concurrent = shift @ARGV;
+my $cmd        = join " ", @ARGV;
+
+open( ARGS, $argfile ) or die "Cannot open $argfile for reading";
+my @args;
+while (<ARGS>) {
+    next if /^\s*#/;
+    chomp;
+    push @args, $_;
+}
+
+my @cmds;
+for my $arg (@args) {
+    my $c = $cmd;
+    $c =~ s/\{\}/$arg/g;
+    push @cmds, $c;
+}
+
+&run_cmds( $concurrent, @cmds );
+
+sub run_cmds {
+
+    my ( $max_cmds, @cmd ) = @_;
+
+    my ( $num_children, $pid );
+
+    for (
+        $num_children = 1 ;
+        $num_children < $max_cmds && @cmds ;
+        $num_children++
+      )
+    {
+        # initialize the number of child processes at 1, and increment it by one
+        #while it is less than $max_cmds
+
+        my $cmd = shift(@cmds);
+        if ( $pid = fork ) {
+
+            # do nothing if parent
+        }
+        elsif ( defined $pid ) {    # $pid is zero here if defined
+                                    #print STDERR $cmd, "\n";
+            system $cmd;
+            exit;
+        }
+        else {
+            #weird fork error
+            die "Can't fork: $!\n";
+        }
+    }
+
+    while (@cmds) {
+        undef $pid;
+      FORK: {
+            my $cmd = shift(@cmds);
+            if ( $pid = fork ) {
+
+                # parent here
+                $num_children++;
+                wait;
+                $num_children--;
+                next;
+
+            }
+            elsif ( defined $pid ) {    # $pid is zero here if defined
+                                        #print STDERR $cmd, "\n";
+                system $cmd;
+                exit;
+
+            }
+            else {
+                #weird fork error
+                die "Can't fork: $!\n";
+            }
+        }
+    }
+    wait while $num_children--;
+}
+
