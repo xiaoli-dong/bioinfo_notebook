@@ -1,3 +1,7 @@
+
+# Nanopore read assembly
+
+
 # get MinNO program
 check out MinNO from https://github.com/nodrogluap/MinNO.git
 mv submodules/grpc to submodules/grpc_org
