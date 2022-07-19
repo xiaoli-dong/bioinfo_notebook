@@ -18,19 +18,24 @@ racon polish and medaka consensus calling script I created for ciliates. you can
 
 echo "Start: `date`"
 
-/gpfs/ebg_data/programs/bwa/bwa index ../assembly.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d ../assembly.fasta ../../qc/ciliates_all.qc.fastq -o assembly.mapping.sam
+################################ four rounds of long reads polish ##############################
+bwa index ../assembly.fasta
+bwa mem -t 20 -x ont2d ../assembly.fasta ../../qc/ciliates_all.qc.fastq -o assembly.mapping.sam
 racon -t 20 ../../qc/ciliates_all.qc.fastq assembly.mapping.sam ../assembly.fasta > racon1.fasta
-/gpfs/ebg_data/programs/bwa/bwa index racon1.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d racon1.fasta ../../qc/ciliates_all.qc.fastq -o racon1.mapping.sam
+
+bwa index racon1.fasta
+bwa mem -t 20 -x ont2d racon1.fasta ../../qc/ciliates_all.qc.fastq -o racon1.mapping.sam
 racon -t 8 ../../qc/ciliates_all.qc.fastq racon1.mapping.sam racon1.fasta > racon2.fasta
-/gpfs/ebg_data/programs/bwa/bwa index racon2.fasta
- /gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d racon2.fasta ../../qc/ciliates_all.qc.fastq -o racon2.mapping.sam
+
+bwa index racon2.fasta
+bwa mem -t 20 -x ont2d racon2.fasta ../../qc/ciliates_all.qc.fastq -o racon2.mapping.sam
 racon -t 20 ../../qc/ciliates_all.qc.fastq racon2.mapping.sam racon2.fasta > racon3.fasta
-/gpfs/ebg_data/programs/bwa/bwa index racon3.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d racon3.fasta ../../qc/ciliates_all.qc.fastq -o racon3.mapping.sam
+
+bwa index racon3.fasta
+bwa mem -t 20 -x ont2d racon3.fasta ../../qc/ciliates_all.qc.fastq -o racon3.mapping.sam
 racon -t 20 ../../qc/ciliates_all.qc.fastq racon3.mapping.sam racon3.fasta > racon4.fasta
 
+################################ Medaka generate consensus ##############################
 mkdir medaka
 cd medaka
 medaka_consensus -i ../../../qc/ciliates_all.qc.fastq -d ../racon4.fasta -o . -t 14 -m r941_min_high_g303
@@ -38,6 +43,7 @@ medaka_consensus -i ../../../qc/ciliates_all.qc.fastq -d ../racon4.fasta -o . -t
 echo "End: `date`; RC=$?"
 
 ```
+
 # short reads polish using pilon
 Nanopore assembled contig polish - short reads polish
 ```
@@ -52,22 +58,21 @@ Nanopore assembled contig polish - short reads polish
 
 echo "Start: `date`"
 
+################################ four rounds of short reads polish ##############################
 # illumina pilon polish
-
 #round1
-/gpfs/ebg_data/programs/bwa/bwa index ../racon_polish/medaka/consensus.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 14 ../racon_polish/medaka/consensus.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq  | samtools v
+bwa index ../racon_polish/medaka/consensus.fasta
+bwa mem -t 14 ../racon_polish/medaka/consensus.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq  | samtools v
 iew - -Sb | samtools sort - -@14 -o illumina.mapping.sorted.bam
 samtools index illumina.mapping.sorted.bam
 
 pileup.sh in=illumina.mapping.sorted.bam ref=../racon_polish/medaka/consensus.fasta out=illumina_cov.txt
-
-java -Xmx100G -jar /gpfs/ebg_data/programs/nanopore/pilon/pilon-1.23.jar --genome ../racon_polish/medaka/consensus.fasta --fix all --changes --frags illumina.mapping.sorted.bam
+java -Xmx100G -jar pilon-1.23.jar --genome ../racon_polish/medaka/consensus.fasta --fix all --changes --frags illumina.mapping.sorted.bam
  --threads 14 --output pilon_round1 | tee round1.pilon
 
 #round2
-/gpfs/ebg_data/programs/bwa/bwa index pilon_round1.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 14 pilon_round1.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq   | samtools view - -Sb | samtool
+bwa index pilon_round1.fasta
+bwa mem -t 14 pilon_round1.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq   | samtools view - -Sb | samtool
 s sort - -@14 -o illumina.mapping1.sorted.bam
 samtools index illumina.mapping1.sorted.bam
 
@@ -77,8 +82,8 @@ put pilon_round2 | tee round2.pilon
 
 
 #round3
-/gpfs/ebg_data/programs/bwa/bwa index pilon_round2.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 14 pilon_round2.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq | samtools view - -Sb | samtools 
+bwa index pilon_round2.fasta
+bwa mem -t 14 pilon_round2.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq | samtools view - -Sb | samtools 
 sort - -@14 -o illumina.mapping2.sorted.bam
 samtools index illumina.mapping2.sorted.bam
 pileup.sh in=illumina.mapping2.sorted.bam ref=pilon_round2.fasta out=map2_cov.txt
@@ -88,8 +93,8 @@ put pilon_round3 | tee round3.pilon
 
 
 #round4
-/gpfs/ebg_data/programs/bwa/bwa index pilon_round3.fasta
-/gpfs/ebg_data/programs/bwa/bwa mem -t 14 pilon_round3.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq | samtools view - -Sb | samtools 
+bwa index pilon_round3.fasta
+bwa mem -t 14 pilon_round3.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq | samtools view - -Sb | samtools 
 sort - -@14 -o illumina.mapping3.sorted.bam
 samtools index illumina.mapping3.sorted.bam
 pileup.sh in=illumina.mapping3.sorted.bam ref=pilon_round3.fasta out=map3_cov.txt
