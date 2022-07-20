@@ -1,5 +1,5 @@
 
-# Nanopore reads analysis
+# Nanopore reads metagenome assembly
 Here, I am sharing some of the step by step procedures I used in my past project procedures
 
 ### Create various plots for long read sequencing data
