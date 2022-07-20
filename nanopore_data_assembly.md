@@ -19,7 +19,7 @@ De novo assembly using flye
 flye --nano-raw qc.fastq.gz --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
 ```
 
-### contig polish using nanopore long reads
+### Contig polish using nanopore long reads
 Here, I used racon to do four rounds of the polish and then did consensus calling using medaka
 
 ```
@@ -61,8 +61,8 @@ echo "End: `date`; RC=$?"
 
 ```
 
-### short reads polish using pilon
-Nanopore assembled contig polish - short reads polish
+### Contig polish using Illumina reads
+Finally, I used Illumina short reads to do the final four rounds of the polish
 ```
 #!/usr/bin/env bash
 
