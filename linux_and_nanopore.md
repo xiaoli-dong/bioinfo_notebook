@@ -137,4 +137,3 @@ sudo service guppyd start
 sudo service minknow restart
 ```
 From there you are all set to run basecalling directly within the MinKNOW application.
-
