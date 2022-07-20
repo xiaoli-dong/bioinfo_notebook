@@ -1,7 +1,16 @@
 
+# Create various plots for long read sequencing data
+```
+NanoPlot --plots dot -t 8 --fastq my_read.fastq -o my_outdir -p my_prefix
+```
+# Finding and remove adapters from nanopore reads
+```
+porechop -i my_read.fastq -o porechop.fastq --threads 8
+```
+
 # Nanopore read assembly
 ```
-flye --nano-raw nanopore_reads/br_all.porechop.fastq --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
+flye --nano-raw nanopore_reads/porechop.fastq --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
 ```
 # Nanopore assembled contig polish - long reads polish
 racon polish and medaka consensus calling script I created for ciliates. you can save it as a file and submit it to synergy cluster using command: "bsub < filename"
