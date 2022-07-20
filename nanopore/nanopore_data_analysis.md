@@ -14,7 +14,7 @@ porechop -i my_read.fastq -o porechop.fastq.gz --threads 8
 filtlong --min_length 1000 porechop.fastq.gz | gzip > qc.fastq.gz
 ```
 
-## Nanopore read assembly
+## Nanopore long read assembly and long read polish 
 
 ### De novo assembly using flye
 1. Assembly using flye
@@ -82,7 +82,7 @@ medaka_consensus -i ../seqs/porechop.fastq.gz -d polished.minipolish_round4.fast
 
 ```
 
-### Final short read plish
+## Using short Illumina reads to polish the Nanopore long read assemblies
 
 After generating consensus from medaka, we use Illumina short reads to do the final four rounds of the polish
 
