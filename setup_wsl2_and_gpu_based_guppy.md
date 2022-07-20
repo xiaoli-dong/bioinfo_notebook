@@ -1,12 +1,15 @@
+# How to setup WSL on windows 10, and enable gpu based guppy basecalling
+Here is a list of reference I used during my setup process
 
-Here is a few references I used to setup wsl on my windows 10, and enabled gpu based guppy basecalling
+- [CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)  
+- [Nanopore Guppy GPU basecalling on Windows using WSL2](https://hackmd.io/@Miles/rkYKDHPsO)  
+- [Nanopore software download](https://community.nanoporetech.com/downloads)  
+- [How to mount windows network drives in wsl](https://www.public-health.uiowa.edu/it/support/kb48568/)
 
-# Reference list
-[CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)  
-[Nanopore Guppy GPU basecalling on Windows using WSL2](https://hackmd.io/@Miles/rkYKDHPsO)  
-[nanopore software download](https://community.nanoporetech.com/downloads)  
+### Troubleshooting while I am doing setup
 
 When I updated the system, I got the following error message
+
 ```
 xdong@M691822:~$ sudo apt-get update
 Get:1 http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease [1575 B]
@@ -22,10 +25,10 @@ E: The repository 'http://developer.download.nvidia.com/compute/cuda/repos/ubunt
 N: Updating from such a repository can't be done securely, and is therefore disabled by default.
 N: See apt-secure(8) manpage for repository creation and user configuration details.
 ```
+
 Here is [the reference](https://chrisjean.com/fix-apt-get-update-the-following-signatures-couldnt-be-verified-because-the-public-key-is-not-available/) I used to fix the problem.   
 ```
 # add missing keys, run the following commands:
 xdong@M691822:~$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A4B469963BF863CC
 ```
-How to mount windows network drives in wsl:  
-Here is [a short tutorial](https://www.public-health.uiowa.edu/it/support/kb48568/)
+
