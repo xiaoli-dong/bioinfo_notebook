@@ -1,4 +1,4 @@
-* The first step is to separate eukaryotic contigs from prokaryotic contigs
+# The first step is to separate eukaryotic contigs from prokaryotic contigs
 
 ```
 #!/bin/bash
@@ -29,7 +29,7 @@ echo "Job finished with exit code $? at: `date`"
 
 ```
 
-* Eukaryotic genome and metagenome annotation
+# Eukaryotic genome and metagenome annotation
 
 After separation, we do the gene prediction with the following iterative approaches and the example command is included in the script. When running script, please make sure to unload unused the modules which are installed as conda packages. Otherwise, there can be confliction happens. For example, different conda installed software may depend on different perl versions. When you load two programs which are using different perl versions. The one loaded earlier will be the perl you are using when you run the program. This may cause the second program to fail. 
 
