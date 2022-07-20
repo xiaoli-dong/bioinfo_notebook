@@ -6,7 +6,7 @@ When the input is metagenome, we need to seperate eukaryotic contigs from the th
 ```
 #!/bin/bash
 # ---------------------------------------------------------------------
-# An example SLURM script for running a job on a Compute Canada cluster. 
+# Scripts used to seperate eukaryotic contigs from prokaryotic contigs 
 # ---------------------------------------------------------------------
 #SBATCH --job-name=eukrep
 #SBATCH --nodes=1
@@ -36,13 +36,18 @@ echo "Job finished with exit code $? at: `date`"
 
 After separations, I used the following procedures to annotate eukaryotic contigs. 
 
+* Repeat identification and masking
+* Gene prediction using Maker:
+ * First round - gene pediction based on evidence
+ * Second round - use ab-initio predictors to improve its predictions
+
 When running script, please make sure to unload unused the modules which are installed as conda packages. Otherwise, there can be confliction happens. For example, different conda installed software may depend on different perl versions. When you load two programs which are using different perl versions. The one loaded earlier will be the perl you are using when you run the program. This may cause the second program to fail. 
 
 ```
 
 #!/bin/bash
 # ---------------------------------------------------------------------
-# AN EXAMPLESLURM script for running a job on a Compute Canada cluster. 
+# Scripts used to  annotate eukaryotic contigs
 # ---------------------------------------------------------------------
 #SBATCH --job-name=SLURM_example
 
