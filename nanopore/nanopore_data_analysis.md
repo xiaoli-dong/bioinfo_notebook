@@ -17,14 +17,15 @@ filtlong --min_length 1000 porechop.fastq.gz | gzip > qc.fastq.gz
 ## Nanopore read assembly
 
 ### De novo assembly using flye
+1. Assembly using flye
+2. Long read polish using racon  
+3. Consensus calling using medaka
 
 ```
 flye --nano-raw qc.fastq.gz --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
 ```
 
-After generated contigs and we firstly use long reads to polish the the assembled contigs. 
-1. Use racon to do four rounds of the polish and then did 
-2. Produce consensus using medaka
+After generated contigs, we do four rounds of long read polish using racon 
 
 ```
 #!/usr/bin/env bash
@@ -65,6 +66,10 @@ echo "End: `date`; RC=$?"
 ```
 
 ### De novo assembly using miniasm
+1. Using minimap2 to generate alignment file
+2. Assembly using miniasm
+3. Long read polish using minipolish  
+4. Consensus calling using medaka
 
 ```
 
