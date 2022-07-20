@@ -1,18 +1,21 @@
 
-# Create various plots for long read sequencing data
+# Nanopore reads analysis
+Here, I am sharing some of the step by step procedures I used in my past project procedures
+
+### Create various plots for long read sequencing data
 ```
 NanoPlot --plots dot -t 8 --fastq my_read.fastq -o my_outdir -p my_prefix
 ```
-# Finding and remove adapters from nanopore reads
+### Finding and remove adapters from nanopore reads
 ```
 porechop -i my_read.fastq -o porechop.fastq --threads 8
 ```
 
-# Nanopore read assembly
+### Nanopore read assembly
 ```
 flye --nano-raw nanopore_reads/porechop.fastq --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
 ```
-# Nanopore assembled contig polish - long reads polish
+### Nanopore assembled contig polish - long reads polish
 racon polish and medaka consensus calling script I created for ciliates. you can save it as a file and submit it to synergy cluster using command: "bsub < filename"
 ```
 #!/usr/bin/env bash
@@ -53,7 +56,7 @@ echo "End: `date`; RC=$?"
 
 ```
 
-# short reads polish using pilon
+### short reads polish using pilon
 Nanopore assembled contig polish - short reads polish
 ```
 #!/usr/bin/env bash
@@ -113,14 +116,3 @@ put pilon_round4 | tee round4.pilon
 echo "End: `date`; RC=$?"
 
 ###########################
-
-```
-
-
-# get MinNO program
-check out MinNO from https://github.com/nodrogluap/MinNO.git
-mv submodules/grpc to submodules/grpc_org
-follwoing the tutorial https://grpc.io/docs/languages/cpp/quickstart/ install grpc
-
-fatal error: zlib.h: No such file or directorys
-sudo apt-get install zlib1g-dev
