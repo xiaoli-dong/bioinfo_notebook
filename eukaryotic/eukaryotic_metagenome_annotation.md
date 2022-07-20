@@ -279,8 +279,8 @@ echo "Job finished with exit code $? at: `date`"
 Euk phylogenetic tree building
 I was building phylogenetic tree mainly referred to the following two papers:
 
-  •	[A new view of the tree of life](https://www.nature.com/articles/nmicrobiol201648)
-  •	[Genome-reconstruction for eukaryotes from complex natural microbial communities](https://genome.cshlp.org/content/early/2018/03/01/gr.228429.117)
+  *	[A new view of the tree of life](https://www.nature.com/articles/nmicrobiol201648)
+  *	[Genome-reconstruction for eukaryotes from complex natural microbial communities](https://genome.cshlp.org/content/early/2018/03/01/gr.228429.117)
 
 In the papers, they used predicted, aligned, and concatenated 16 Ribosomal protein (RPs) genes to build the trees. The downloaded hmm for euk and arc, and the scripts I wrote to fetch hmm from contigs are all located at: /gpfs/ebg_data/programs/euk_phylogenetic_tree_building
 
