@@ -1,0 +1,102 @@
+====nanopore Assembly command====:
+
+/gpfs/ebg_data/programs/nanopore/Flye/bin/flye --nano-raw nanopore_reads/br_all.porechop.fastq --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
+
+
+
+====racon polish and medaka consensus calling script I created for ciliates. you can save it as a file and submit it to synergy cluster using command: "bsub < filename"=====
+
+
+#!/usr/bin/env bash
+
+#BSUB -J polish
+#BSUB -q coursework
+#BSUB -n 8
+#BSUB -R "span[hosts=1]"
+#BSUB -W 10:00
+#BSUB -o polish_%J.OUT
+#BSUB -e polish_%J.ERR
+
+echo "Start: `date`"
+
+/gpfs/ebg_data/programs/bwa/bwa index ../assembly.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d ../assembly.fasta ../../qc/ciliates_all.qc.fastq -o assembly.mapping.sam
+racon -t 20 ../../qc/ciliates_all.qc.fastq assembly.mapping.sam ../assembly.fasta > racon1.fasta
+/gpfs/ebg_data/programs/bwa/bwa index racon1.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d racon1.fasta ../../qc/ciliates_all.qc.fastq -o racon1.mapping.sam
+racon -t 8 ../../qc/ciliates_all.qc.fastq racon1.mapping.sam racon1.fasta > racon2.fasta
+/gpfs/ebg_data/programs/bwa/bwa index racon2.fasta
+ /gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d racon2.fasta ../../qc/ciliates_all.qc.fastq -o racon2.mapping.sam
+racon -t 20 ../../qc/ciliates_all.qc.fastq racon2.mapping.sam racon2.fasta > racon3.fasta
+/gpfs/ebg_data/programs/bwa/bwa index racon3.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 20 -x ont2d racon3.fasta ../../qc/ciliates_all.qc.fastq -o racon3.mapping.sam
+racon -t 20 ../../qc/ciliates_all.qc.fastq racon3.mapping.sam racon3.fasta > racon4.fasta
+
+mkdir medaka
+cd medaka
+medaka_consensus -i ../../../qc/ciliates_all.qc.fastq -d ../racon4.fasta -o . -t 14 -m r941_min_high_g303
+
+echo "End: `date`; RC=$?"
+
+
+===== Pilon polish script I created for cilates, again, it can be submitted to synergy cluster using "bsub < filename"=====
+
+#!/usr/bin/env bash
+
+#BSUB -J pilon_polish
+#BSUB -q coursework
+#BSUB -n 8
+#BSUB -R "span[hosts=1]"
+#BSUB -o pilon_polish_%J.OUT
+#BSUB -e pilon_polish_%J.ERR
+
+echo "Start: `date`"
+
+#illumina pilon polish
+
+#round1
+/gpfs/ebg_data/programs/bwa/bwa index ../racon_polish/medaka/consensus.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 14 ../racon_polish/medaka/consensus.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq  | samtools v
+iew - -Sb | samtools sort - -@14 -o illumina.mapping.sorted.bam
+samtools index illumina.mapping.sorted.bam
+
+pileup.sh in=illumina.mapping.sorted.bam ref=../racon_polish/medaka/consensus.fasta out=illumina_cov.txt
+
+java -Xmx100G -jar /gpfs/ebg_data/programs/nanopore/pilon/pilon-1.23.jar --genome ../racon_polish/medaka/consensus.fasta --fix all --changes --frags illumina.mapping.sorted.bam
+ --threads 14 --output pilon_round1 | tee round1.pilon
+
+#round2
+/gpfs/ebg_data/programs/bwa/bwa index pilon_round1.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 14 pilon_round1.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq   | samtools view - -Sb | samtool
+s sort - -@14 -o illumina.mapping1.sorted.bam
+samtools index illumina.mapping1.sorted.bam
+
+pileup.sh in=illumina.mapping1.sorted.bam ref=pilon_round1.fasta out=map1_cov.txt
+java -Xmx100G -jar /gpfs/ebg_data/programs/nanopore/pilon/pilon-1.23.jar --genome pilon_round1.fasta --fix all --changes --frags illumina.mapping1.sorted.bam --threads 14 --out
+put pilon_round2 | tee round2.pilon
+
+
+#round3
+/gpfs/ebg_data/programs/bwa/bwa index pilon_round2.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 14 pilon_round2.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq | samtools view - -Sb | samtools 
+sort - -@14 -o illumina.mapping2.sorted.bam
+samtools index illumina.mapping2.sorted.bam
+pileup.sh in=illumina.mapping2.sorted.bam ref=pilon_round2.fasta out=map2_cov.txt
+
+java -Xmx100G -jar /gpfs/ebg_data/programs/nanopore/pilon/pilon-1.23.jar --genome pilon_round2.fasta --fix all --changes --frags illumina.mapping2.sorted.bam --threads 14 --out
+put pilon_round3 | tee round3.pilon
+
+
+#round4
+/gpfs/ebg_data/programs/bwa/bwa index pilon_round3.fasta
+/gpfs/ebg_data/programs/bwa/bwa mem -t 14 pilon_round3.fasta ../../../illumina/qc/cilates.qc.R1.fastq ../../../illumina/qc/cilates.qc.R2.fastq | samtools view - -Sb | samtools 
+sort - -@14 -o illumina.mapping3.sorted.bam
+samtools index illumina.mapping3.sorted.bam
+pileup.sh in=illumina.mapping3.sorted.bam ref=pilon_round3.fasta out=map3_cov.txt
+java -Xmx100G -jar /gpfs/ebg_data/programs/nanopore/pilon/pilon-1.23.jar --genome pilon_round3.fasta --fix all --changes --frags illumina.mapping3.sorted.bam --threads 14 --out
+put pilon_round4 | tee round4.pilon
+
+echo "End: `date`; RC=$?"
+
+###########################
+
