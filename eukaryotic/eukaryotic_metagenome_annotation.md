@@ -313,7 +313,7 @@ mafft --addfragments  mycontigbin_ncbi.concat_rps.faa --keeplength --reorder --t
 ```
 - build the tree using raxml
 ```
-raxmlHPC-PTHREADS  -f a -s all.aligned.fasta -n whole -m PROTGAMMAAUTO -x 0123 -# 100 -p 012345  -T 20
+raxmlHPC-PTHREADS  -f a -s all.aligned.fasta -n whole -m PROTGAMMAAUTO -x 0123 -# 100 -p 012345  -T 20 -r maximun_likelihood_tree
 ```
 After extracting RPs genes from contigs, you need manually inspect the alignment qualities. If some genes’ alignment qualities are poor, you should exclude them from the  further analysis
 
