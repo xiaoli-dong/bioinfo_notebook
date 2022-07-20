@@ -2,6 +2,8 @@
 # Nanopore metagenome reads analysis
 Here, I am sharing some of the step by step procedures I used in my past project procedures
 
+## Nanopore sequence quality checking and quality control
+
 ### Create various plots for long read sequencing data
 ```
 NanoPlot --plots dot -t 8 --fastq my_read.fastq -o my_outdir -p my_prefix
@@ -12,15 +14,17 @@ porechop -i my_read.fastq -o porechop.fastq.gz --threads 8
 filtlong --min_length 1000 porechop.fastq.gz | gzip > qc.fastq.gz
 ```
 
-### Nanopore read assembly
-De novo assembly using flye
+## Nanopore read assembly
+
+### De novo assembly using flye
 
 ```
 flye --nano-raw qc.fastq.gz --meta --genome-size 450m --out-dir assembly_fly -i 3 -t 12
 ```
 
-### Contig polish using nanopore long reads
-Here, I used racon to do four rounds of the polish and then did consensus calling using medaka
+After generated contigs and we firstly use long reads to polish the the assembled contigs. 
+1. Use racon to do four rounds of the polish and then did 
+2. Produce consensus using medaka
 
 ```
 #!/usr/bin/env bash
@@ -61,8 +65,8 @@ echo "End: `date`; RC=$?"
 
 ```
 
-### Contig polish using Illumina reads
-Finally, I used Illumina short reads to do the final four rounds of the polish
+After generating consensus, we use Illumina short reads to do the final four rounds of the polish
+
 ```
 #!/usr/bin/env bash
 
