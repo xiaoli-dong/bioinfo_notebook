@@ -302,10 +302,11 @@ In the papers, they used predicted, aligned, and concatenated 16 Ribosomal prote
 The following are the procedures I used to build the algae tree years ago:
 
 - Downloaded 7 genomes from ncbi. Those genomes belong to Chlorophyta they were not included in the laura hug's reference tree. 
-- Extracted RPs genes from eukaryotic contig bins and the ncbi genomes using 16 euk rps hmm models 
+- Extracted RPs genes from eukaryotic contig bins and the ncbi genomes using 16 euk rps hmm models
+
 - Concatenated RPs genes in order for each genomes (in total 8 gene set)
 - Extracted euk and arc alignments from laura hug's total alignments (euk+archaea+bac)
-- Do the reference alignment using the contig bin RPs genes and ncbi genome RPs genes as input  and the extracted euk+archaea alignment as references:
+- Aligned concatenated RPs genes from my eukaryotic bin and ncbi downlaed genomes using the the extracted euk+archaea alignment from the preivous step as a reference:
 
 ```
 mafft --addfragments  mycontigbin_ncbi.concat_rps.faa --keeplength --reorder --thread 8  16rps_align.archaea.eukaryota.fasta  > all.aligned.fasta
