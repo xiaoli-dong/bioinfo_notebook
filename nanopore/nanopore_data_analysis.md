@@ -65,7 +65,21 @@ echo "End: `date`; RC=$?"
 
 ```
 
-After generating consensus, we use Illumina short reads to do the final four rounds of the polish
+### De novo assembly using miniasm
+
+'''
+minimap2 -x ava-ont -t20 porechop.fastq.gz porechop.fastq.gz | gzip -1 > reads.paf.gz
+miniasm  -f porechop.fastq.gz reads.paf.gz > assembly.gfa
+awk '/^S/{print ">"$2"\n"$3}' assembly.gfa | fold > out.fa
+minipolish -t 8 --rounds 4 porechop.fastq.gz assembly.gfa > polished.gfa
+awk '/^S/{print ">"$2"\n"$3}' polished.gfa | fold > polished.minipolish_round4.fasta
+medaka_consensus -i ../seqs/porechop.fastq.gz -d polished.minipolish_round4.fasta -o minipolish_medaka -t 14 -m r941_min_high_g303
+
+'''
+
+### Final short read plish
+
+After generating consensus from medaka, we use Illumina short reads to do the final four rounds of the polish
 
 ```
 #!/usr/bin/env bash
@@ -116,5 +130,6 @@ pileup.sh in=illumina.mapping3.sorted.bam ref=pilon_round3.fasta out=map3_cov.tx
 java -Xmx100G -jar /gpfs/ebg_data/programs/nanopore/pilon/pilon-1.23.jar --genome pilon_round3.fasta --fix all --changes --frags illumina.mapping3.sorted.bam --threads 14 --output pilon_round4 | tee round4.pilon
 
 echo "End: `date`; RC=$?"
+```
 
-###########################
+
