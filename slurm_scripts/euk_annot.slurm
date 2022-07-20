@@ -131,7 +131,8 @@ cd ../
 # ---------------------------------------------------------------------------                                                    
 echo "Starting second round of Maker"
 # --------------------------------------------------------------------------                                                      
-# first round we use GeneMark-ES predicted model, Busco trained Augustus model                                                   # and the swiss-prot db to do the gene structure prediction                                                                      
+# first round we use GeneMark-ES predicted model, Busco trained Augustus model
+# and the swiss-prot db to do the gene structure prediction                                                                      
 
 mkdir 2ndRoundTrain
 cd 2ndRoundTrain
