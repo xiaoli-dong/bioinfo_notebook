@@ -297,22 +297,22 @@ I was building phylogenetic tree mainly referred to the following two papers:
   *	[A new view of the tree of life](https://www.nature.com/articles/nmicrobiol201648)
   *	[Genome-reconstruction for eukaryotes from complex natural microbial communities](https://genome.cshlp.org/content/early/2018/03/01/gr.228429.117)
 
-In the papers, they used predicted, aligned, and concatenated 16 Ribosomal protein (RPs) genes to build the trees. The downloaded hmm for euk and arc, and the scripts I wrote to fetch hmm from contigs are all located at: /gpfs/ebg_data/programs/euk_phylogenetic_tree_building
+In the papers, they used predicted, aligned, and concatenated 16 Ribosomal protein (RPs) genes to build the trees. 
 
-The following is the procedures I used to build the algae tree years ago:
+The following are the procedures I used to build the algae tree years ago:
 
-- Downloaded 7 genomes from ncbi. Those genomes belong to Chlorophyta nut they were not included in the laura hug's reference tree. 
-- Extract rps genes from sodalake bin and the ncbi genomes using 16 euk rps hmm modelsls 
-- Concatenated 16 rps genes in order for each genomes (in total 8 gene set)
-- Extracted euk + archaea alignments from laura hug's total alignments (euk+archaea+bac)
-- Do the reference alignment using sodalake rps genes + ncbi genome rps genes as input  and the extracted euk+archaea alignment as references:
+- Downloaded 7 genomes from ncbi. Those genomes belong to Chlorophyta they were not included in the laura hug's reference tree. 
+- Extracted RPs genes from eukaryotic contig bins and the ncbi genomes using 16 euk rps hmm models 
+- Concatenated RPs genes in order for each genomes (in total 8 gene set)
+- Extracted euk and arc alignments from laura hug's total alignments (euk+archaea+bac)
+- Do the reference alignment using the contig bin RPs genes and ncbi genome RPs genes as input  and the extracted euk+archaea alignment as references:
+
 ```
-mafft --addfragments  sodaLake_ncbi.concat.faa --keeplength --reorder --thread 8  16rps_align.archaea.eukaryota.fasta  > all.aligned.fasta
+mafft --addfragments  mycontigbin_ncbi.concat_rps.faa --keeplength --reorder --thread 8  16rps_align.archaea.eukaryota.fasta  > all.aligned.fasta
 ```
-- build the tree using raxml: 
+- build the tree using raxml
 ```
-bsub -o out.txt -e err.txt raxmlHPC-PTHREADS  -f a -s all.aligned.fasta -n whole -m PROTGAMMAAUTO -x 0123 -# 100 -p 012345  -T 20
-RAxml selected GAMMA + VT likelihood model as the best-scoring AA model  
+raxmlHPC-PTHREADS  -f a -s all.aligned.fasta -n whole -m PROTGAMMAAUTO -x 0123 -# 100 -p 012345  -T 20
 ```
 After extracted rps genes from contigs, you need to manually inspect the alignment qualities. If some the genes’ alignment qualities are poor, you should exclude them from the  further analysis
 
