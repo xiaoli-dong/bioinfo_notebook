@@ -1,4 +1,4 @@
-I am using this repository to share some of the analysis methods I used in my work and hope this can be useful for others.
+I am using this repository to share some of the analysis methods I used in my previous work and hope this can be useful for others.
 
 ## Table of contents
 - Nanopore sequencing and analysis
