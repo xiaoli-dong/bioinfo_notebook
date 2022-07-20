@@ -1,4 +1,7 @@
-# The first step is to separate eukaryotic contigs from prokaryotic contigs
+# Eukaryotic genome and metagenome annotation
+When the input is metagenome, we need to seperate eukaryotic contigs from the the prokaryotic contigs
+
+## Separate eukaryotic contigs from prokaryotic contigs
 
 ```
 #!/bin/bash
@@ -29,9 +32,11 @@ echo "Job finished with exit code $? at: `date`"
 
 ```
 
-# Eukaryotic genome and metagenome annotation
+## Eukaryotic genome and metagenome annotation
 
-After separation, we do the gene prediction with the following iterative approaches and the example command is included in the script. When running script, please make sure to unload unused the modules which are installed as conda packages. Otherwise, there can be confliction happens. For example, different conda installed software may depend on different perl versions. When you load two programs which are using different perl versions. The one loaded earlier will be the perl you are using when you run the program. This may cause the second program to fail. 
+After separations, I used the following procedures to annotate eukaryotic contigs. 
+
+When running script, please make sure to unload unused the modules which are installed as conda packages. Otherwise, there can be confliction happens. For example, different conda installed software may depend on different perl versions. When you load two programs which are using different perl versions. The one loaded earlier will be the perl you are using when you run the program. This may cause the second program to fail. 
 
 ```
 
@@ -280,7 +285,7 @@ echo "Job finished with exit code $? at: `date`"
 
 ```
 
-# Eukaryotic phylogenetic tree building
+# Build an eukaryotic phylogenetic tree
 
 I was building phylogenetic tree mainly referred to the following two papers:
 
