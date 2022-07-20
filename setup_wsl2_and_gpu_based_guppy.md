@@ -1,5 +1,5 @@
 # How to setup WSL on windows 10, and enable gpu based guppy basecalling
-Here is a list of reference I used during my setup process
+Here is a list of references I used during my setup process
 
 - [CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)  
 - [Nanopore Guppy GPU basecalling on Windows using WSL2](https://hackmd.io/@Miles/rkYKDHPsO)  
