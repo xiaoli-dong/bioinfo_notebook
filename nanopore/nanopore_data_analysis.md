@@ -62,12 +62,12 @@ cd medaka
 medaka_consensus -i ../../../qc/qc.fastq.gz -d ../racon4.fasta -o . -t 14 -m r941_min_high_g303
 
 echo "End: `date`; RC=$?"
-
 ```
 
 ### De novo assembly using miniasm
 
-'''
+```
+
 minimap2 -x ava-ont -t20 porechop.fastq.gz porechop.fastq.gz | gzip -1 > reads.paf.gz
 miniasm  -f porechop.fastq.gz reads.paf.gz > assembly.gfa
 awk '/^S/{print ">"$2"\n"$3}' assembly.gfa | fold > out.fa
@@ -75,7 +75,7 @@ minipolish -t 8 --rounds 4 porechop.fastq.gz assembly.gfa > polished.gfa
 awk '/^S/{print ">"$2"\n"$3}' polished.gfa | fold > polished.minipolish_round4.fasta
 medaka_consensus -i ../seqs/porechop.fastq.gz -d polished.minipolish_round4.fasta -o minipolish_medaka -t 14 -m r941_min_high_g303
 
-'''
+```
 
 ### Final short read plish
 
