@@ -8,4 +8,5 @@ I am using this repository to share some of the analysis methods I used in my wo
   
 - Eukaryotic genome, metagenome analysis
   * [ Eukaryotic metagenome annotation](https://github.com/xiaoli-dong/bioinfo_notebook/blob/main/eukaryotic/eukaryotic_metagenome_annotation.md#eukaryotic_metagenome_annotation)
-- SARS-Cov-2 inter and intra variants calling
+- SARS-Cov-2 data analysis
+ * [SARS-Cov-2 inter and intra variants calling]()
