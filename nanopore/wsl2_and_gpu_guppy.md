@@ -6,7 +6,7 @@ Here is a list of references I used during my setup process
 - [Nanopore software download](https://community.nanoporetech.com/downloads)  
 - [How to mount windows network drives in wsl](https://www.public-health.uiowa.edu/it/support/kb48568/)
 
-In order to enable the termal tab and panel split, you will need to install Windows Terminal through [Microsoft Store](https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=en-au&gl=AU) or you can download it from [github](https://github.com/microsoft/terminal). Here is a reference page on [how to split, resize, switch between panels](https://docs.microsoft.com/en-us/windows/terminal/panes)
+In order to enable the terminal tabs and panel split, you will need to install Windows Terminal through [Microsoft Store](https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=en-au&gl=AU) or you can download it from [github](https://github.com/microsoft/terminal). Here is a reference page on [how to split, resize, switch between panels](https://docs.microsoft.com/en-us/windows/terminal/panes)
 
 ### Troubleshooting while I am doing setup
 
