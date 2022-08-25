@@ -141,7 +141,10 @@ From there you are all set to run basecalling directly within the MinKNOW applic
 ## Edit user_conf file
 you can also modify /opt/ont/minknow/conf/user_conf file to set the data and log to your desirable directory;
 
+```
+sudo cp -v user_conf user_conf.backup 
 
+```
 ![Screenshot from 2022-08-25 15-44-55](https://user-images.githubusercontent.com/52679027/186774882-638fc3ff-9703-422e-b9c9-d56bd2f40bcc.png)
 ![Screenshot from 2022-08-25 15-45-12](https://user-images.githubusercontent.com/52679027/186774884-c5e83cba-71ad-439c-a638-641bb1351a6c.png)
 
