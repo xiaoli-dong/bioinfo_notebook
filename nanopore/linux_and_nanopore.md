@@ -137,3 +137,9 @@ sudo service guppyd start
 sudo service minknow restart
 ```
 From there you are all set to run basecalling directly within the MinKNOW application.
+
+## Edit user_conf file
+you can also modify /opt/ont/minknow/conf/user_conf file to set the data and log to your desirable directory;
+
+
+
