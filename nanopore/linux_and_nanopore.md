@@ -138,13 +138,38 @@ sudo service minknow restart
 ```
 From there you are all set to run basecalling directly within the MinKNOW application.
 
-## Edit user_conf file
-you can also modify /opt/ont/minknow/conf/user_conf file to set the data and log to your desirable directory;
+## Customize the data output directory
+By default, MinKNOW will output the data to /var/lib/minknow/data directory and output the log files to /var/log/minknow directory. If you want to change the default data and log output directory, you will need to edit /opt/ont/minknow/conf/user_conf file. Before editing, please backup the original file using the command below:
 
 ```
 sudo cp -v user_conf user_conf.backup 
 
 ```
-![Screenshot from 2022-08-25 15-44-55](https://user-images.githubusercontent.com/52679027/186774882-638fc3ff-9703-422e-b9c9-d56bd2f40bcc.png)
-![Screenshot from 2022-08-25 15-45-12](https://user-images.githubusercontent.com/52679027/186774884-c5e83cba-71ad-439c-a638-641bb1351a6c.png)
+You can refer to the screenshots on how to modify the user_conf file
 
+<figure>
+  <figcaption>The ouput_dirs section of the original user_conf</figcaption>
+  <img
+  src="https://user-images.githubusercontent.com/52679027/186774882-638fc3ff-9703-422e-b9c9-d56bd2f40bcc.png"
+  alt="The ouput_dirs section of the original user_conf">
+  
+</figure>  
+
+
+
+<figure>
+  <figcaption>The ouput_dirs section of the user_conf after customization</figcaption>
+  <img
+  src="https://user-images.githubusercontent.com/52679027/186774884-c5e83cba-71ad-439c-a638-641bb1351a6c.png"
+  alt="The ouput_dirs section of the user_conf after customization">
+  
+</figure>
+
+After modifying the user_conf file, restart MinKNOW, Guppyd
+
+```
+sudo service minknow stop # Resart minknow
+sudo service guppyd stop
+sudo service guppyd start
+sudo service minknow restart
+```
