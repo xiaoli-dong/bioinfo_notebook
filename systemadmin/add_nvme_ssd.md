@@ -9,3 +9,8 @@
 ![IMG_20220825_092844](https://user-images.githubusercontent.com/52679027/187237581-7c9bb375-7575-45ea-b184-e9134f27ddd3.jpg)
 ![IMG_20220825_093015](https://user-images.githubusercontent.com/52679027/187238266-3a9b3e20-ba11-4481-82df-0212a18ee024.jpg)
 ![IMG_20220825_093040](https://user-images.githubusercontent.com/52679027/187238633-16062414-0784-4a51-bf25-3a1bac403d59.jpg)
+
+
+```
+sudo /opt/ont/minknow/bin/config_editor --conf application --filename /opt/ont/minknow/conf/app_conf --set guppy.server_config.extra_arguments="--require_barcodes_both_ends"
+```
