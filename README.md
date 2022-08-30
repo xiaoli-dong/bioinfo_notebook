@@ -1,4 +1,4 @@
-I am using this repository to share some of the analysis methods I used in my previous work and hope this can be useful for others.
+I am using this repository to share some of my work notes, which includes system admin, data analysis methods, pipeline developments, example commands.  I hope this can be useful for others.
 
 ## Table of contents
 - System administrator
