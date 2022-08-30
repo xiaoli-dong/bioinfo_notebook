@@ -190,4 +190,5 @@ sudo service minknow stop # Resart minknow
 sudo service guppyd stop
 sudo service guppyd start
 sudo service minknow restart
+
 ```
