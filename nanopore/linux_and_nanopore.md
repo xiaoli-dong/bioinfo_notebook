@@ -28,6 +28,24 @@ A lot of time, you have one ssd drive, in which you install your operating syste
 * [How to Delete Partition in Linux](https://phoenixnap.com/kb/delete-partition-linux)
 * [Format disk, mount the disk, update fstab](https://www.cyberciti.biz/faq/linux-disk-format/)
 
+## Enabling SSH on Ubuntu
+By default, when Ubuntu is first installed, remote access via SSH is not allowed. If you need it, enabling SSH on Ubuntu is fairly straightforward. Perform the following steps as root or user with sudo privileges to install and enable SSH on your Ubuntu system:
+
+```
+# Install openssh-server package
+sudo apt update
+sudo apt install openssh-server
+
+# Verify that SSH is running by typing
+sudo systemctl status ssh
+
+# Ubuntu ships with a firewall configuration tool called UFW. If the firewall is enabled on your system, make sure to open the SSH port:
+sudo ufw allow ssh
+
+# connecting to the SSH Server
+ssh username@ip_address
+```
+
 # Setup MinKNOW with Guppy GPU Basecaller
 I was mainly using [MinKNOW tutorial](https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy) as a reference to install MinKNOW, CUDA Toolkit, setup MinKNOW with Guppy GPU Basecaller
 
