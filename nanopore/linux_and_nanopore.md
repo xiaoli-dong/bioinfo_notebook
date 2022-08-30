@@ -141,10 +141,16 @@ sudo vi /etc/systemd/system/guppyd.service.d/override.conf
 ```
 
 ## Edit app_conf file  
-You will also need to modifying /opt/ont/minknow/conf/app_conf file. Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below:  
+Before editing, I always backup the original app_conf file to app_conf.backup. You will also need to modifying /opt/ont/minknow/conf/app_conf file. Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below:  
 
 ![Screenshot from 2022-06-21 14-02-38](https://user-images.githubusercontent.com/52679027/174887939-b7b24cfd-54f0-4191-bc7c-791fa767f3ce.png)
 
+For the projects we are doing, we are very often required to check barcodes at both ends during the barcode resolving stage. I used config_editor added that requirement to the minknow configurtion file app_conf
+
+```
+sudo /opt/ont/minknow/bin/config_editor --conf application --filename /opt/ont/minknow/conf/app_conf --set guppy.server_config.extra_arguments="--require_barcodes_both_ends"
+
+```
 
 After all the changes, restart MinKNOW, Guppyd
 
