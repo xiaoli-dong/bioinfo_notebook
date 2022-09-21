@@ -27,6 +27,7 @@ Follow the [CANONICAL ubuntu step by step tutorials](https://ubuntu.com/tutorial
 A lot of time, you have one ssd drive, in which you install your operating system, and another HDD drive to store your data. For the hard drive, you may want to delete the previous partitions, format it, mount it and then add it to the fstab. The following is a list of tutorials: 
 * [How to Delete Partition in Linux](https://phoenixnap.com/kb/delete-partition-linux)
 * [Format disk, mount the disk, update fstab](https://www.cyberciti.biz/faq/linux-disk-format/)
+* [Disks utility to format a hard drive](https://www.wikihow.com/Format-a-Hard-Drive-Using-Ubuntu)
 
 ## Enabling SSH on Ubuntu
 By default, when Ubuntu is first installed, remote access via SSH is not allowed. If you need it, enabling SSH on Ubuntu is fairly straightforward. Perform the following steps as root or user with sudo privileges to install and enable SSH on your Ubuntu system:
