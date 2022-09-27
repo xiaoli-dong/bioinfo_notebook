@@ -96,6 +96,20 @@ Sample output from nvidia-smi command:
 Sample output from nvcc --version command:  
 ![Screenshot from 2022-06-21 14-30-48](https://user-images.githubusercontent.com/52679027/174892486-3c303742-a0ff-4edd-b2ec-0056cdb9ed03.png)
 
+## remove incorrectly installed nvidia and cuda toolkit
+Using the following commands to remove nvidia, and cuda toolkits
+```
+ sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*"  "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
+ sudo apt-get --purge remove "*nvidia*"
+ sudo apt-get autoremove
+ sudo reboot
+```
+After reboot, you can using command 
+```
+nvidia-smi
+```
+to make sure that your nvidia drive is working properly
+
 
 ## Setup MinKNOW with Guppy GPU Baseller
 Finally, we can start to configure MinKNOW to use a GPU-capable version of guppy and to make the guppy basecaller plays nice with the installed MinKNOW.
