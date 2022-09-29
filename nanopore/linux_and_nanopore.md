@@ -93,7 +93,7 @@ Sample output from nvidia-smi command:
 
 ![Screenshot from 2022-06-21 14-29-55](https://user-images.githubusercontent.com/52679027/174892221-0cda31c0-e1ea-4a88-abc7-27138a5ff8fe.png)
 
-* Notes: before Guppy GPU Basecaller, the guppy_basecaller_server line will not shown in the screenshot
+* Notes: before Guppy GPU Basecaller gets configured, the guppy_basecaller_server line will not shown in the screenshot
 
 Sample output from nvcc --version command:  
 ![Screenshot from 2022-06-21 14-30-48](https://user-images.githubusercontent.com/52679027/174892486-3c303742-a0ff-4edd-b2ec-0056cdb9ed03.png)
