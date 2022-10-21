@@ -3,6 +3,49 @@
 # Create global user accounts
 There must be a uniform user and group name space (including UIDs and GIDs) across the cluster. Slurm and MUNGE require consistent UID and GID across all servers and nodes in the cluster, including the slurm and munge user and make sure that these same users are created identically on all nodes. This must be done prior to installing RPMs (which would create random UID/GID pairs if these users don’t exist).
 
+It is very important to avoid UID and GID below 1000, as defined in the standard configuration file /etc/login.defs by the parameters UID_MIN, UID_MAX, GID_MIN, GID_MAX, see also https://en.wikipedia.org/wiki/User_identifier.
+
+```
+export MUNGEUSER=1005
+groupadd -g $MUNGEUSER munge
+useradd  -m -c "MUNGE Uid 'N' Gid Emporium" -d /var/lib/munge -u $MUNGEUSER -g munge  -s /sbin/nologin munge
+export SlurmUSER=1001
+groupadd -g $SlurmUSER slurm
+useradd  -m -c "Slurm workload manager" -d /var/lib/slurm -u $SlurmUSER -g slurm  -s /bin/bash slurm
+```
+
+install munge packages
+```
+#PowerTools is a CentOS repository. On RHEL 8 we have the CodeReady
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+yum install munge munge-libs munge-devel
+
+```
+
+On the Head/Master node (only) create a secret key to be used globally on every node (see the Munge_installation guide):
+```
+sudo yum install rng-tools -y
+sudo rngd -r /dev/urandom
+ 
+sudo /usr/sbin/create-munge-key -r -f
+ 
+sudo sh -c  "dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key"
+sudo chown munge: /etc/munge/munge.key
+sudo chmod 400 /etc/munge/munge.key
+```
+copy all munge.key to all the nodes
+```
+  9  cp -p /nfs/APL_Genomics/munge.key /etc/munge/
+   10  mkdir /var/log/munge
+   11  chown munge: /etc/munge/munge.key
+   12  chmod 400 /etc/munge/munge.key
+   13  chown -R munge: /etc/munge/ /var/log/munge/
+   14  chmod 0700 /etc/munge/ /var/log/munge/
+```
+```
+sudo systemctl enable munge
+sudo systemctl start munge
+```
 # MUNGE authentication service
 * Install the MUNGE RPM packages 
 # MUNGE configuration and testing
