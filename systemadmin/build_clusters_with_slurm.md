@@ -58,6 +58,70 @@ sudo systemctl enable munge
 sudo systemctl start munge
 ```
 
+# SLURM accounting support
+```
+sudo yum install mariadb-server mariadb-devel -y
+```
+
+Install Slurm prerequisites as well as several optional packages that enable Slurm plugins as described in the Slurm_Quick_Start guide:
+```
+yum install rpm-build gcc python3 openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel munge munge-libs munge-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel gtk2-devel libibmad libibumad perl-Switch perl-ExtUtils-MakeMaker xorg-x11-xauth http-parser-devel json-c-devel
+
+# this is required by libssh2-devel man2html
+yum module enable virt-devel
+
+yum install libssh2-devel man2html
+
+#If you want to build the Slurm REST API daemon named slurmrestd (from Slurm 20.02 and newer), or if you want to use the slurm.conf ResumeProgram and SuspendProgram from the Power_Saving_Guide, then you make sure to install these prerequisites before building RPMs:
+yum install http-parser-devel json-c-devel
+```
+
+Build yum rpm package
+```
+mkdir slurm-tmp
+cd slurm-tmp
+export VER=22.05.5
+wget https://download.schedmd.com/slurm/slurm-$VER.tar.bz2
+rpmbuild -ta slurm-$VER.tar.bz2  
+rm slurm-$VER.tar.bz2
+cd ..
+rmdir slurm-tmp 
+# get perl-Switch
+yum install cpan -y 
+cd ~/rpmbuild/RPMS/x86_64/
+yum --nogpgcheck localinstall slurm-22.05.5-1.el8.x86_64.rpm slurm-contribs-22.05.5-1.el8.x86_64.rpm slurm-devel-22.05.5-1.el8.x86_64.rpm slurm-example-configs-22.05.5-1.el8.x86_64.rpm  slurm-libpmi-22.05.5-1.el8.x86_64.rpm  slurm-openlava-22.05.5-1.el8.x86_64.rpm slurm-pam_slurm-22.05.5-1.el8.x86_64.rpm  slurm-perlapi-22.05.5-1.el8.x86_64.rpm  slurm-slurmctld-22.05.5-1.el8.x86_64.rpm  slurm-slurmd-22.05.5-1.el8.x86_64.rpm slurm-slurmdbd-22.05.5-1.el8.x86_64.rpm slurm-torque-22.05.5-1.el8.x86_64.rpm -y
+sudo mkdir /var/spool/slurm
+sudo chown slurm:slurm /var/spool/slurm
+sudo chmod 755 /var/spool/slurm
+sudo mkdir /var/spool/slurm/slurmctld
+sudo chown slurm:slurm /var/spool/slurm/slurmctld
+sudo chmod 755 /var/spool/slurm/slurmctld
+sudo mkdir -p /var/spool/slurm/cluster_state
+sudo chown slurm:slurm /var/spool/slurm/cluster_state
+sudo touch /var/log/slurmctld.log
+sudo chown slurm:slurm /var/log/slurmctld.log
+sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
+sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
+
+systemctl enable slurmctld
+systemctl enable slurmdbd
+systemctl start slurmctld.service
 
 
+on all computer nodes: copy all the slurm.conf file and cgroup.conf file to all the computer nodes
+
+ yum --nogpgcheck localinstall slurm-22.05.5-1.el8.x86_64.rpm slurm-contribs-22.05.5-1.el8.x86_64.rpm slurm-devel-22.05.5-1.el8.x86_64.rpm slurm-example-configs-22.05.5-1.el8.x86_64.rpm  slurm-libpmi-22.05.5-1.el8.x86_64.rpm  slurm-openlava-22.05.5-1.el8.x86_64.rpm slurm-pam_slurm-22.05.5-1.el8.x86_64.rpm  slurm-perlapi-22.05.5-1.el8.x86_64.rpm  slurm-slurmctld-22.05.5-1.el8.x86_64.rpm  slurm-slurmd-22.05.5-1.el8.x86_64.rpm slurm-slurmdbd-22.05.5-1.el8.x86_64.rpm slurm-torque-22.05.5-1.el8.x86_64.rpm -y
+ mkdir -p /var/spool/slurm/slurmd
+ mkdir -p /var/log/slurm
+ touch /var/log/slurm/slurmd.log
+ chown -R slurm:slurm /var/spool/slurm /var/log/slurm
+ cp /nfs/APL_Genomics/cgroup.conf /etc/slurm/
+  chown -R slurm:slurm  /etc/slurm/cgroup
+  systemctl enable slurmd.service
+   systemctl start slurmd.service
+    systemctl status slurmd.service
+ 
+
+
+```
 https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/
