@@ -14,30 +14,35 @@ groupadd -g $SlurmUSER slurm
 useradd  -m -c "Slurm workload manager" -d /var/lib/slurm -u $SlurmUSER -g slurm  -s /bin/bash slurm
 ```
 
-# install munge packages
+# MUNGE packages installation and configuration
+
+## Install MUNGE
+
 ```
 #PowerTools is a CentOS repository. On RHEL 8 we have the CodeReady
 subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 yum install munge munge-libs munge-devel
 
 ```
-# MUNGE configuration and testing
+
+## MUNGE configuration and testing
 
 * On the Head/Master node (only) create a secret key to be used globally on every node
 * Securely propagate /etc/munge/munge.key (e.g., via SSH) to all other hosts within the same security realm:
 * Make sure to set the correct ownership and mode on all nodes:
 
+### Create MUNGE secret key
 ```
 sudo yum install rng-tools -y
-sudo rngd -r /dev/urandom
- 
+sudo rngd -r /dev/urandom 
 sudo /usr/sbin/create-munge-key -r -f
  
 sudo sh -c  "dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key"
 sudo chown munge: /etc/munge/munge.key
 sudo chmod 400 /etc/munge/munge.key
 ```
-copy all munge.key to all the nodes and make sure to set the correct ownership and mode on all nodes:
+### Copy all munge.key to all the nodes and make sure to set the correct ownership and mode on all nodes:
+
 ```
 cp -p /nfs/APL_Genomics/munge.key /etc/munge/
 mkdir /var/log/munge
@@ -46,7 +51,8 @@ chmod 400 /etc/munge/munge.key
 chown -R munge: /etc/munge/ /var/log/munge/
 chmod 0700 /etc/munge/ /var/log/munge/
 ```
-Enable MUNGE authentication service on all the nodes
+## Enable MUNGE authentication service on all the nodes
+
 ```
 sudo systemctl enable munge
 sudo systemctl start munge
