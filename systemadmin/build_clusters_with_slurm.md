@@ -122,6 +122,6 @@ on all computer nodes: copy all the slurm.conf file and cgroup.conf file to all 
     systemctl status slurmd.service
  
 
-
+systemctl daemon-reload,
 ```
 https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/
