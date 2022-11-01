@@ -102,26 +102,32 @@ sudo touch /var/log/slurmctld.log
 sudo chown slurm:slurm /var/log/slurmctld.log
 sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
-
+we are doing Configless Slurm setup by adding "SlurmctldParameters=enable_configles" to the slurm.conf
 systemctl enable slurmctld
 systemctl enable slurmdbd
 systemctl start slurmctld.service
 
 
-on all computer nodes: copy all the slurm.conf file and cgroup.conf file to all the computer nodes
+on all computer nodes:intall rpm package
 
  yum --nogpgcheck localinstall slurm-22.05.5-1.el8.x86_64.rpm slurm-contribs-22.05.5-1.el8.x86_64.rpm slurm-devel-22.05.5-1.el8.x86_64.rpm slurm-example-configs-22.05.5-1.el8.x86_64.rpm  slurm-libpmi-22.05.5-1.el8.x86_64.rpm  slurm-openlava-22.05.5-1.el8.x86_64.rpm slurm-pam_slurm-22.05.5-1.el8.x86_64.rpm  slurm-perlapi-22.05.5-1.el8.x86_64.rpm  slurm-slurmctld-22.05.5-1.el8.x86_64.rpm  slurm-slurmd-22.05.5-1.el8.x86_64.rpm slurm-slurmdbd-22.05.5-1.el8.x86_64.rpm slurm-torque-22.05.5-1.el8.x86_64.rpm -y
  mkdir -p /var/spool/slurm/slurmd
  mkdir -p /var/log/slurm
  touch /var/log/slurm/slurmd.log
  chown -R slurm:slurm /var/spool/slurm /var/log/slurm
- cp /nfs/APL_Genomics/cgroup.conf /etc/slurm/
-  chown -R slurm:slurm  /etc/slurm/cgroup
-  systemctl enable slurmd.service
+ mkdir -p /run/slurm
+ chown -R slurm:slurm /run/slurm
+ 
+ Once enabled, you must configure the slurmd to get its configs from the slurmctld. This can be accomplished either by launching slurmd with the --conf-server option
+ "ExecStart=/usr/sbin/slurmd --conf-server your_head_node_hostname:6817 -D -s "
+ 
+ systemctl daemon-reload,
+ 
+ systemctl enable slurmd.service
    systemctl start slurmd.service
     systemctl status slurmd.service
  
 
-systemctl daemon-reload,
+
 ```
 https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/
