@@ -127,7 +127,7 @@ on all computer nodes:intall rpm package
    systemctl start slurmd.service
     systemctl status slurmd.service
  
-
+make sure to restart munge.service
 
 ```
 https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/
