@@ -188,7 +188,7 @@ sacctmgr list account
 
 #reference
 
-[Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
-[Slurm administration](https://documentation.tjhsst.edu/services/cluster/slurm-administration)
-[faq](https://hpc.pku.edu.cn/_book/guide/faq.html)
-[Slurm installation and upgrading](https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/)
+* [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
+* [Slurm administration](https://documentation.tjhsst.edu/services/cluster/slurm-administration)
+* [faq](https://hpc.pku.edu.cn/_book/guide/faq.html)
+* [Slurm installation and upgrading](https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/)
