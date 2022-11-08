@@ -185,10 +185,10 @@ sacctmgr show User
 sacctmgr show association
 sacctmgr list account
 ```
-https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/
 
 #reference
 
 [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
 [Slurm administration](https://documentation.tjhsst.edu/services/cluster/slurm-administration)
-https://hpc.pku.edu.cn/_book/guide/faq.html
+[faq](https://hpc.pku.edu.cn/_book/guide/faq.html)
+[Slurm installation and upgrading](https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/)
