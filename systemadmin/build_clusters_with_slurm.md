@@ -58,9 +58,11 @@ sudo systemctl enable munge
 sudo systemctl start munge
 ```
 
-# Intall SLURM
+
+# Build slurm on the head node
 
 ## Enable slurm accounting database 
+
 ```
 sudo yum install mariadb-server mariadb-devel -y
 ```
@@ -90,7 +92,8 @@ rm slurm-$VER.tar.bz2
 cd ..
 rmdir slurm-tmp 
 ```
-## install and configure slurm on head node
+
+# install and configure slurm on head node
 
 ```
 # get perl-Switch
@@ -119,7 +122,7 @@ sudo chown slurm:slurm /var/spool/slurm/cluster_state```
  firewall-cmd --permanent --zone=public --add-port=6819/udp
  firewall-cmd --add-port=30000-60000/udp --permanent
  firewall-cmd --add-port=30000-60000/tcp --permanent
-```
+
 sudo touch /var/log/slurmctld.log
 sudo chown slurm:slurm /var/log/slurmctld.log
 sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
@@ -135,7 +138,7 @@ systemctl enable slurmdbd
 systemctl start slurmctld.service
 ```
 
-## Install and configure slurm on all the computing nodes
+# Install and configure slurm on all the computing nodes
 ```
 # isntall slurm
 yum --nogpgcheck localinstall slurm-22.05.5-1.el8.x86_64.rpm slurm-contribs-22.05.5-1.el8.x86_64.rpm slurm-devel-22.05.5-1.el8.x86_64.rpm slurm-example-configs-22.05.5-1.el8.x86_64.rpm  slurm-libpmi-22.05.5-1.el8.x86_64.rpm  slurm-openlava-22.05.5-1.el8.x86_64.rpm slurm-pam_slurm-22.05.5-1.el8.x86_64.rpm  slurm-perlapi-22.05.5-1.el8.x86_64.rpm  slurm-slurmctld-22.05.5-1.el8.x86_64.rpm  slurm-slurmd-22.05.5-1.el8.x86_64.rpm slurm-slurmdbd-22.05.5-1.el8.x86_64.rpm slurm-torque-22.05.5-1.el8.x86_64.rpm -y
@@ -170,9 +173,9 @@ When using "enable_configles" option, you must configure the slurmd to get its c
  systemctl status slurmd.service
  ```
     
-make sure to restart munge.service
-https://slurm.schedmd.com/configless_slurm.html
-```
+ make sure to restart munge.service
+ https://slurm.schedmd.com/configless_slurm.html
+
 # Account setup
 ```
 sacctmgr add User Accounts=all xiaolidong
