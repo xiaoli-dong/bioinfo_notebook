@@ -186,7 +186,7 @@ sacctmgr show association
 sacctmgr list account
 ```
 
-#reference
+# References
 
 * [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
 * [Slurm administration](https://documentation.tjhsst.edu/services/cluster/slurm-administration)
