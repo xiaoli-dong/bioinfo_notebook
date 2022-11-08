@@ -151,7 +151,7 @@ chown -R slurm:slurm /var/spool/slurm /var/log/slurm
 mkdir -p /run/slurm
 chown -R slurm:slurm /run/slurm
 ```
-firewall will block connections between nodes so in case of cluster with multiple nodes adapt the firewall on the compute nodes
+firewall will block connections between nodes so in case of cluster with multiple nodes adapt the firewall on the compute nodes, we will disable the firewall on the computing node
 
 ```
 systemctl stop firewalld.service
