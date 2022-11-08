@@ -126,9 +126,50 @@ on all computer nodes:intall rpm package
  systemctl enable slurmd.service
    systemctl start slurmd.service
     systemctl status slurmd.service
+    
+ 
  
 make sure to restart munge.service
 https://slurm.schedmd.com/configless_slurm.html
 
 ```
+# firewall
+```
+ #on login node
+ firewall-cmd --permanent --zone=public --add-port=6817/udp
+ firewall-cmd --permanent --zone=public --add-port=6817/tcp
+ firewall-cmd --permanent --zone=public --add-port=6818/tcp
+ firewall-cmd --permanent --zone=public --add-port=6818/udp
+ firewall-cmd --permanent --zone=public --add-port=7321/udp
+ firewall-cmd --permanent --zone=public --add-port=7321/tcp
+ firewall-cmd --permanent --zone=public --add-port=6819/tcp
+ firewall-cmd --permanent --zone=public --add-port=6819/udp
+ firewall-cmd --add-port=30000-60000/udp --permanent
+ firewall-cmd --add-port=30000-60000/tcp --permanent
+```
+
+on the computing nodes
+```
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+```
+otherwise, your computing nodes will be in "down" state after it stay in idle for a while
+
+![image](https://user-images.githubusercontent.com/52679027/200654143-e745ee97-eacd-4f46-849c-1dd3fabfa5dc.png)
+
+# Account setup
+
+
+```
+sacctmgr add User Accounts=all xiaolidong
+sacctmgr add account all Description="all" Organization=all
+sacctmgr show User
+sacctmgr show association
+sacctmgr list account
+```
 https://wiki.fysik.dtu.dk/Niflheim_system/Slurm_installation/
+
+#reference
+
+[Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
+[Slurm administration](https://documentation.tjhsst.edu/services/cluster/slurm-administration)
