@@ -130,6 +130,7 @@ sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 
 
 #we are doing Configless Slurm setup by adding "SlurmctldParameters=enable_configles" to the slurm.conf
+#https://slurm.schedmd.com/configless_slurm.html
 
 
 # enable and start services
@@ -174,7 +175,7 @@ When using "enable_configles" option, you must configure the slurmd to get its c
  ```
     
  make sure to restart munge.service
- https://slurm.schedmd.com/configless_slurm.html
+
 
 # Account setup
 ```
