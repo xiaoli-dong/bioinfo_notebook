@@ -217,6 +217,9 @@ sudo service minknow restart
 
 
 # Change usb permission
+![Screenshot from 2022-11-22 17-03-35](https://user-images.githubusercontent.com/52679027/203445296-44a6cfa4-615e-4210-9b1c-1436ff44e0a6.png)
+
+
 
 Creat a file at: /etc/udev/rules.d/usb.rules and add the following line to the file to make all the usb port readable and writable
 ```
@@ -231,6 +234,6 @@ sudo udevadm trigger
 
 ```
 after that you should see the permission has been changed
+![Screenshot from 2022-11-22 17-02-01](https://user-images.githubusercontent.com/52679027/203445149-b08dd807-50c6-4ba2-9a33-c43d9616c854.png)
 
-![Screenshot from 2022-11-22 16-59-23](https://user-images.githubusercontent.com/52679027/203444900-2139874d-af67-4082-beef-0549e86e32ee.png)
 
