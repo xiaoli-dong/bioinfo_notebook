@@ -213,5 +213,24 @@ sudo service minknow stop # Resart minknow
 sudo service guppyd stop
 sudo service guppyd start
 sudo service minknow restart
+```
+
+
+# Change usb permission
+
+Creat a file at: /etc/udev/rules.d/usb.rules and add the following line to the file to make all the usb port readable and writable
+```
+SUBSYSTEMS=="usb",MODE="0666"
 
 ```
+Then run the following command to make the rule to take action
+```
+sudo udevadm control --reload-rules
+sudo service udev restart
+sudo udevadm trigger
+
+```
+after that you should see the permission has been changed
+
+![Screenshot from 2022-11-22 16-59-23](https://user-images.githubusercontent.com/52679027/203444900-2139874d-af67-4082-beef-0549e86e32ee.png)
+
