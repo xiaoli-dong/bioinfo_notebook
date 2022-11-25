@@ -164,3 +164,10 @@ sudo service guppyd start
 sudo service minknow restart
 ```
 
+When I connected the device to the computer, I got the error message in the log file as " ERROR: libusb: error [get_usbfs_fd] libusb couldn't open USB device". See the screenshot:
+
+![Screenshot 2022-11-25 160147](https://user-images.githubusercontent.com/52679027/204061870-62ba26c6-01df-4c49-b2f6-a1824c0fa87f.png)
+
+Then, I changed "User=minkow Group=minknow" to "User=root Group=root" and then the error message has gone!!!!!!!!!!!!!
+
+
