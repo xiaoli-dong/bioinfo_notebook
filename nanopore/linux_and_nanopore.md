@@ -47,18 +47,9 @@ sudo ufw allow ssh
 ssh username@ip_address
 ```
 
-# Setup MinKNOW with Guppy GPU Basecaller
-I was mainly using [MinKNOW tutorial](https://jhuapl-bio.github.io/Basestack/supplemental/minknow_guppy) as a reference to install MinKNOW, CUDA Toolkit, setup MinKNOW with Guppy GPU Basecaller
-
-## Install MinKNOW
-```
-wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
-echo "deb http://mirror.oxfordnanoportal.com/apt $(lsb_release -c | awk '{print $2}')-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
-sudo apt-get -y update
-sudo apt-get install -y minion-nc
-```
-## Install cuda
+# Install CUDA Toolkit
 Firstly, you need to ensure that your GPU is CUDA-capable by typing:
+
 ```
 lspci | grep VGA
 ```
@@ -99,7 +90,8 @@ Sample output from nvcc --version command:
 ![Screenshot from 2022-06-21 14-30-48](https://user-images.githubusercontent.com/52679027/174892486-3c303742-a0ff-4edd-b2ec-0056cdb9ed03.png)
 
 ## remove incorrectly installed nvidia and cuda toolkit
-Using the following commands to remove nvidia, and cuda toolkits
+If you mess up the nvidia and CUDA ToolKit installation, here is some of the commands to remove nvidia, and cuda toolkits before a reinstallation.
+
 ```
  sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*"  "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
  sudo apt-get --purge remove "*nvidia*"
@@ -113,52 +105,19 @@ nvidia-smi
 to make sure that your nvidia drive is working properly
 
 
-## Setup MinKNOW with Guppy GPU Basecaller
-Finally, we can start to configure MinKNOW to use a GPU-capable version of guppy and to make the guppy basecaller plays nice with the installed MinKNOW.
+# Install MinKNOW
+
+For installation, you can just follow the offical document from nanopore. The new version of the MinKnow already includes the gpu based guppy. This has made the installation process much easier: 
 
 ```
-/opt/ont/minknow/guppy/bin/guppy_basecaller --version
-```
-You should see a version, for example, we are using 6.1.5. You MUST download the same version of the Guppy:
-
-```
-# Save the old guppy just in case
-sudo mv /opt/ont/guppy/bin /opt/ont/guppy/bin.sav && sudo mv /opt/ont/guppy/data /opt/ont/guppy/data.sav
-
-tar -xvzf ont-guppy_6.1.5_linux64.tar.gz
-
-# Move the newly downloaded guppy
-sudo cp -r ont-guppy/bin /opt/ont/guppy/bin && sudo cp -r ont-guppy/data /opt/ont/guppy/data
-
-#Disable online need for MinKNOW to ping external servers
-sudo /opt/ont/minknow/bin/config_editor --filename /opt/ont/minknow/conf/sys_conf --conf system --set on_acquisition_ping_failure=ignore
-
-# restart MinKNOW
-sudo service minknow restart
-```
-
-## Edit the existing guppyd service file using 
-```
-sudo vi /etc/systemd/system/guppyd.service
-
-# Change the line
-> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3
-# to 
-> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
-```
-
-## Edit the existing override.conf file
-```
-sudo vi /etc/systemd/system/guppyd.service.d/override.conf
-
-# Change the line
-> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --num_callers 1 --cpu_threads_per_caller 2 --port /tmp/.guppy/5555 --ipc_threads 3
-# to 
-> ExecStart=/opt/ont/guppy/bin/guppy_basecall_server --log_path /var/log/guppy --config dna_r9.4.1_450bps_fast.cfg --port /tmp/.guppy/5555 -x cuda:all
+wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
+echo "deb http://mirror.oxfordnanoportal.com/apt $(lsb_release -c | awk '{print $2}')-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
+sudo apt-get -y update
+sudo apt-get install -y minion-nc
 ```
 
 ## Edit app_conf file  
-Before editing, I always backup the original app_conf file to app_conf.backup. You will also need to modifying /opt/ont/minknow/conf/app_conf file. Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below:  
+Before editing, I always backup the original app_conf file to app_conf.bak. You will also need to modifying /opt/ont/minknow/conf/app_conf file. Adjust the "gpu_calling" field from false to true, being careful not to modify/delete any commas or quotations. See the reference image below:  
 
 ![Screenshot from 2022-06-21 14-02-38](https://user-images.githubusercontent.com/52679027/174887939-b7b24cfd-54f0-4191-bc7c-791fa767f3ce.png)
 
@@ -169,21 +128,11 @@ sudo /opt/ont/minknow/bin/config_editor --conf application --filename /opt/ont/m
 
 ```
 
-After all the changes, restart MinKNOW, Guppyd
-
-```
-sudo service minknow stop # Resart minknow
-sudo service guppyd stop
-sudo service guppyd start
-sudo service minknow restart
-```
-From there you are all set to run basecalling directly within the MinKNOW application.
-
 ## Customize the data output directory
 By default, MinKNOW will output the data to /var/lib/minknow/data directory and output the log files to /var/log/minknow directory. If you want to change the default data and log output directory, you will need to edit /opt/ont/minknow/conf/user_conf file. Before editing, please backup the original file using the command below:
 
 ```
-sudo cp -v user_conf user_conf.backup 
+sudo cp -v user_conf user_conf.bak
 
 ```
 You can refer to the screenshots on how to modify the user_conf file
@@ -214,26 +163,4 @@ sudo service guppyd stop
 sudo service guppyd start
 sudo service minknow restart
 ```
-
-
-# Change usb permission
-![Screenshot from 2022-11-22 17-03-35](https://user-images.githubusercontent.com/52679027/203445296-44a6cfa4-615e-4210-9b1c-1436ff44e0a6.png)
-
-
-
-Creat a file at: /etc/udev/rules.d/usb.rules and add the following line to the file to make all the usb port readable and writable
-```
-SUBSYSTEMS=="usb",MODE="0666"
-
-```
-Then run the following command to make the rule to take action
-```
-sudo udevadm control --reload-rules
-sudo service udev restart
-sudo udevadm trigger
-
-```
-after that you should see the permission has been changed
-![Screenshot from 2022-11-22 17-02-01](https://user-images.githubusercontent.com/52679027/203445149-b08dd807-50c6-4ba2-9a33-c43d9616c854.png)
-
 
