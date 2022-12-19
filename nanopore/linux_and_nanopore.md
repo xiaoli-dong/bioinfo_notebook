@@ -170,4 +170,5 @@ When I connected the device to the computer, I got the error message in the log 
 
 Then, I changed "User=minkow Group=minknow" to "User=root Group=root". After restart the service, then the error message has gone!!!!!!!!!!!!!
 
-
+# Troubleshooting reference
+(GPU Calling in MinKNOW)[https://gringer.gitlab.io/presentation-notes/2021/10/08/gpu-calling-in-minknow/]
