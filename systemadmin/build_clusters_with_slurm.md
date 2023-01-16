@@ -185,7 +185,11 @@ sacctmgr show User
 sacctmgr show association
 sacctmgr list account
 ```
-
+# Restart a node
+After a node shutdown and upgrade, the node went to state down. The following command will bring the node from down state to idle state
+```
+scontrol update nodename=my_node_name state=idle
+```
 # References
 
 * [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
