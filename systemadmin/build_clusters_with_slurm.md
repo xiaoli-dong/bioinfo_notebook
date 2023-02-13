@@ -186,10 +186,17 @@ sacctmgr show association
 sacctmgr list account
 ```
 # Restart a node
-After a node shutdown and upgrade, the node went to state down. The following command will bring the node from down state to idle state
+After a node shutdown and upgrade, the node went to state down. The following commands will bring the node from down state to idle state
+
 ```
-scontrol update nodename=my_node_name state=idle
+#If no jobs are currently running on the node:
+scontrol update nodename=computer_node_name state=idle
+
+#If jobs are running on the node:
+scontrol update nodename=computer_node_name state=resume
 ```
+
+
 # References
 
 * [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
