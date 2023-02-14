@@ -11,3 +11,5 @@ systemctl enable nginx
 systemctl start nginx
 systemctl status nginx
 ```
+#How do I turn SELinux off in Red Hat Enterprise Linux?  
+https://access.redhat.com/solutions/3176
