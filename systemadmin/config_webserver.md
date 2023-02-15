@@ -12,4 +12,6 @@ systemctl start nginx
 systemctl status nginx
 ```
 #How do I turn SELinux off in Red Hat Enterprise Linux?  
-https://access.redhat.com/solutions/3176
+https://access.redhat.com/solutions/3176  
+
+chcon -v --type=httpd_sys_content_t /nfs/APL.../production/web  
