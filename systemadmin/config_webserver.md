@@ -14,4 +14,6 @@ systemctl status nginx
 #How do I turn SELinux off in Red Hat Enterprise Linux?  
 https://access.redhat.com/solutions/3176  
 
+[Install mongodb on redhat with SELinux enforced](https://technixleo.com/install-mongodb-on-centos-alma-rhel-9/)
+
 chcon -v --type=httpd_sys_content_t /nfs/APL.../production/web  
