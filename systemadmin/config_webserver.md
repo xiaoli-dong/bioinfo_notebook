@@ -17,3 +17,19 @@ https://access.redhat.com/solutions/3176
 [Install mongodb on redhat with SELinux enforced](https://technixleo.com/install-mongodb-on-centos-alma-rhel-9/)
 
 chcon -v --type=httpd_sys_content_t /nfs/APL.../production/web  
+
+# front-end
+This application can only work with v16 
+
+```
+# if your system already have node npm installed, remove it first
+yum remove -y nodejs npm
+ curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+
+```
+
+First, you need to add the NodeSource yum repository to your system. This can be done by using the following command as user root:
+```
+curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+ yum install nodejs
+```
