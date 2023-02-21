@@ -33,3 +33,10 @@ First, you need to add the NodeSource yum repository to your system. This can be
 curl -sL https://rpm.nodesource.com/setup_16.x | bash -
  yum install nodejs
 ```
+
+you need to open the port:
+```
+firewall-cmd --permanent --zone=public --add-port=3000/tcp
+firewall-cmd --reload
+firewall-cmd --list-ports
+```
