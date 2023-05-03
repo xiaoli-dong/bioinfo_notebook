@@ -129,7 +129,7 @@ sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 
 
-#we are doing Configless Slurm setup by adding "SlurmctldParameters=enable_configles" to the slurm.conf
+#we are doing Configless Slurm setup by adding "SlurmctldParameters=enable_configless" to the slurm.conf
 #https://slurm.schedmd.com/configless_slurm.html
 
 
