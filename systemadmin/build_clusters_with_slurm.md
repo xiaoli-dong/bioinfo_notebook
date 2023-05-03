@@ -138,7 +138,8 @@ systemctl enable slurmctld
 systemctl enable slurmdbd
 systemctl start slurmctld.service
 ```
-## When the slurm.conf file is updated, please run the following command to instruct all Slurm daemons to re-read the configuration file
+## Update the slurm.conf file
+When the slurm.conf file is updated, please run the following command to instruct all Slurm daemons to re-read the configuration file
 ```
 scontrol reconfigure
 ```
