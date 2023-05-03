@@ -141,6 +141,9 @@ systemctl start slurmctld.service
 
 # Install and configure slurm on all the computing nodes
 ```
+# make a copy of the slurm rpm build from the head node before start
+cd ~/rpmbuild/RPMS/x86_64/
+
 # isntall slurm
 yum --nogpgcheck localinstall slurm-22.05.5-1.el8.x86_64.rpm slurm-contribs-22.05.5-1.el8.x86_64.rpm slurm-devel-22.05.5-1.el8.x86_64.rpm slurm-example-configs-22.05.5-1.el8.x86_64.rpm  slurm-libpmi-22.05.5-1.el8.x86_64.rpm  slurm-openlava-22.05.5-1.el8.x86_64.rpm slurm-pam_slurm-22.05.5-1.el8.x86_64.rpm  slurm-perlapi-22.05.5-1.el8.x86_64.rpm  slurm-slurmctld-22.05.5-1.el8.x86_64.rpm  slurm-slurmd-22.05.5-1.el8.x86_64.rpm slurm-slurmdbd-22.05.5-1.el8.x86_64.rpm slurm-torque-22.05.5-1.el8.x86_64.rpm -y
 
