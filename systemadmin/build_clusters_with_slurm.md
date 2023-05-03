@@ -138,7 +138,14 @@ systemctl enable slurmctld
 systemctl enable slurmdbd
 systemctl start slurmctld.service
 ```
-
+## When the slurm.conf file is updated, please run the following command to instruct all Slurm daemons to re-read the configuration file
+```
+scontrol reconfigure
+```
+Otherwise, you will get the below error message
+```
+error: Node xxx appears to have a different slurm.conf than the slurmctld.
+```
 # Install and configure slurm on all the computing nodes
 ```
 # make a copy of the slurm rpm build from the head node before start
