@@ -44,7 +44,7 @@ sudo chmod 400 /etc/munge/munge.key
 ### Copy all munge.key to all the nodes and make sure to set the correct ownership and mode on all nodes:
 
 ```
-cp -p /nfs/APL_Genomics/munge.key /etc/munge/
+cp -p /your_path_to/munge.key /etc/munge/
 mkdir /var/log/munge
 chown munge: /etc/munge/munge.key
 chmod 400 /etc/munge/munge.key
