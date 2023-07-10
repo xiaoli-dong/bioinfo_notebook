@@ -1,3 +1,5 @@
+This document describes how to install singularity on a shared network drive instead od default location. This is useful for the multi node cluster. In this way, we only need install one copy of singularity. However, the library dependencies need to be installed on all the node.
+
 ```
 yum update -y && \
     yum groupinstall -y 'Development Tools' && \
