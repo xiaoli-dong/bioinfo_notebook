@@ -16,7 +16,7 @@ Download and install Singularity from a release
 wget https://github.com/sylabs/singularity/releases/download/v3.11.4/singularity-ce-3.11.4.tar.gz
 tar -xvzf singularity-ce-3.11.4.tar.gz
 cd singularity-ce-3.11.4/
-./mconfig --prefix=/nfs/APL_Genomics/apps/production/singularity/
+./mconfig  --without-suid --prefix=/nfs/APL_Genomics/apps/production/singularity/
 make -C ./builddir
 make -C ./builddir install
 ```
