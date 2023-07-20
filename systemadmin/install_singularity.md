@@ -10,15 +10,18 @@ yum update -y && \
     wget \
     squashfs-tools
 
+yum install -y    libseccomp-devel    glib2-devel    squashfs-tools    cryptsetup    runc
+
  wget https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
-tar -C /nfs/APL_Genomics/apps/production/go -xvzf go1.20.5.linux-amd64.tar.gz
+tar -C /usr/local -xzvf go1.20.5.linux-amd64.tar.gz
+rm go1.20.5.linux-amd64.tar.gz
 ```
 Download and install Singularity from a release
 ```
 wget https://github.com/sylabs/singularity/releases/download/v3.11.4/singularity-ce-3.11.4.tar.gz
 tar -xvzf singularity-ce-3.11.4.tar.gz
 cd singularity-ce-3.11.4/
-./mconfig  --without-suid --prefix=/nfs/APL_Genomics/apps/production/singularity/
+./mconfig 
 make -C ./builddir
 make -C ./builddir install
 ```
