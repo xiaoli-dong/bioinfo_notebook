@@ -1,2 +1,5 @@
 # VZV - varicella-zoster virus 
 VZV, which is a DNA virus, is an alpha herpes virus that causes chickenpox and herpes zoster (shingles). After the primary infection, VZV stays in the body (in the sensory nerve ganglia) as a latent infection. Primary infection with VZV causes varicella. Reactivation of latent infection causes herpes zoster (shingles).
+
+# Influenza Virus
+The name "influenza" is derived from Latin word for "influence" and the pathogens that cause this disease are RNA viruses from the family Orthomyxoviridae. The influenza A and B virus genomes each comprise eight negative-sense, single-stranded viral RNA (vRNA) segments, while influenza C virus has a seven-segment genome. (See [Table 1.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3074182/table/T1/) The eight segments of influenza A and B viruses 
