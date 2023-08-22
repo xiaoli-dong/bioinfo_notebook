@@ -172,3 +172,10 @@ Then, I changed "User=minkow Group=minknow" to "User=root Group=root". After res
 
 # Troubleshooting reference
 (GPU Calling in MinKNOW)[https://gringer.gitlab.io/presentation-notes/2021/10/08/gpu-calling-in-minknow/]
+
+# Clean install the new version of MinKnow
+```
+apt-get purge ont-*
+apt-get autoremove
+```
+
