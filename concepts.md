@@ -13,3 +13,8 @@ minimap2 -ax map-out ref.fa reads.fq | samtools view -F0x900
 ```
 
 However, this is discouraged as supplementary alignment is informative.
+
+## Measuring the quality of reads?
+"Note that FastQC is designed for fixed-length short reads; it doesn't perform well with the dynamic and long read lengths seen in nanopore sequencing. Because nanopore read quality tends to be fairly consistent throughout a read, a biplot (or contour plot) of mean quality vs read length would be more representative of the actual error distribution." --from nanopore community
+
+"The quality of the very ends is always of lower quality due to the relatively uncontrolled translocation speed. But the adapters act as kind of quality buffer. Once the motor settles into a fairly stable translocation speed you are then progressing into the read proper. " -- from nanopore community 
