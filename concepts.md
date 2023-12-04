@@ -34,5 +34,7 @@ However, this is discouraged as supplementary alignment is informative.
     </table>
 </div>
  
+## Sample-Barcode Bleeding
 
+"As nanopore sequencing is a molecule-based approach, it is easy to “over- or underload” cDNA molecules for library preparation. This overloading often happens if the majority (>50%) of all fragments are “super small” (<100 nucleotides) in the sample. Molecule-overloading usually leads to unspecific barcode ligation during the adapter ligation step after barcode pooling. Free barcodes from samples with a low amount of DNA molecules might ligate to non-barcoded DNA from samples with a highly overloaded number of molecules. A negative control can visualize this issue (poreCov highlights negative controls in the report if specified). Furthermore, using only reads with barcodes present on both ends mitigates the problem (the default setting for poreCov). If sample bleeding occurred, a false-positive negative control usually inherits a similar SNP proportion pattern as the barcoded samples used on the same run (see Figure 3). This can be visually inspected by opening the .bam file in the result dir “2.Genomes” via, e.g., Unipro UGENE (Okonechnikov et al., 2012) or IGV viewer (Robinson et al., 2011) "  -- [poreCov-An Easy to Use, Fast, and Robust Workflow for SARS-CoV-2 Genome Reconstruction via Nanopore Sequencing](https://www.frontiersin.org/articles/10.3389/fgene.2021.711437/full)
 
