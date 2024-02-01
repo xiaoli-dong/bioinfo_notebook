@@ -24,8 +24,42 @@ export RHOME="${prog}/R"
 export R_LIBS="${prog}/R/R-packages"
 
 # add R to the path
+# cat <<-EOF >> /etc/profile.d/R.sh
+export PATH=/nfs/APL_Genomics/apps/production/R/bin:\$PATH
+EOF
+
 
 ```
 
 https://docs.posit.co/resources/install-r/
+
 https://docs.posit.co/resources/install-r-source/
+
+## install RStudio Server
+https://web.mit.edu/r/current/RStudio/INSTALL
+https://higgi13425.github.io/medical_r/posts/2020-12-06-setting-up-a-rstudio-server-with-free-software-version/
+Download RStudio sever: https://posit.co/download/rstudio-server/
+
+```
+wget wget https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2023.12.1-402-x86_64.rpm
+yum install rstudio-server-rhel-2023.12.1-402-x86_64.rpm
+
+```
+You need to edit the configuration file /etc/rstudio/rserver.conf to include the following line.
+
+As we did earlier, make sure this path is the same path where you installed R.
+
+```
+rsession-which-r=/nfs/APL_Genomics/apps/production/R/bin/R
+
+if R directory is symbolink
+ERROR Unable to determine real path of R script /nfs/APL_Genomics/apps/production/R/bin/R (system error 13 (Permission denied));
+if point to the realpaht
+ERROR Error reading R script (/nfs/APL_Genomics/apps/production/R/R-4.3.2/build/bin/R), system error 2 (No such file or directory)
+
+After copyt the content in the build directory to /opt/R, it started properly
+
+sudo systemctl daemon-reload 
+sudo systemctl start rstudio-server 
+sudo systemctl enable rstudio-server
+```
