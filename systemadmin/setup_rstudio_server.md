@@ -1,5 +1,6 @@
 # How to install and configure R and Rstudio server on RHEL 8 Linux System
 
+## Install R from source code 
 ```
 # Enable the Extra Packages for Enterprise Linux (EPEL) repository
 yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
