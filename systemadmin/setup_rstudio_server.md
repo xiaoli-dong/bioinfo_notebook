@@ -62,4 +62,10 @@ After copyt the content in the build directory to /opt/R, it started properly
 sudo systemctl daemon-reload 
 sudo systemctl start rstudio-server 
 sudo systemctl enable rstudio-server
+
+ firewall-cmd --permanent --zone=public --add-port=8787/tcp
+firewall-cmd --reload
+http://10.106.109.188:8787/
+![image](https://github.com/xiaoli-dong/bioinfo_notebook/assets/52679027/3f80250a-e93a-4a90-9c82-f7d0d283e0c6)
+
 ```
