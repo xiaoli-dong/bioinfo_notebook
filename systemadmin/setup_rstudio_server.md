@@ -85,5 +85,11 @@ pamtester --verbose rstudio <username> authenticate
 pamtester: successfully authenticated
 cannot login with the account, the errors
 
+https://support.posit.co/hc/en-us/articles/15173704481943-Active-Directory-LDAP-user-not-able-to-login-permission-denied-on-PAM-acct-mgmt
 
-
+```
+/pamtester --verbose rstudio <username> authenticate acct_mgmt setcred open_session close_session
+setenforce 0
+restart the rstudio server
+```
+It start to work. It means sulinux has been a problem
