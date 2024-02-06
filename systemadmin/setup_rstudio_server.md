@@ -69,3 +69,21 @@ http://10.106.109.188:8787/
 ![image](https://github.com/xiaoli-dong/bioinfo_notebook/assets/52679027/3f80250a-e93a-4a90-9c82-f7d0d283e0c6)
 
 ```
+cannot login with the account, the errors:
+
+```
+pamtester --verbose rstudio <username> authenticate
+pamtester: authentication failed
+
+```
+[Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/232226708-Using-LDAP-authentication-with-RStudio-Workbench-RStudio-Server-Pro)
+
+```
+cp /etc/pam.d/login /etc/pam.d/rstudio
+```
+pamtester --verbose rstudio <username> authenticate
+pamtester: successfully authenticated
+cannot login with the account, the errors
+
+
+
