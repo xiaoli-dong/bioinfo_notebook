@@ -37,7 +37,9 @@ https://docs.posit.co/resources/install-r-source/
 
 ## install RStudio Server
 https://web.mit.edu/r/current/RStudio/INSTALL
+
 https://higgi13425.github.io/medical_r/posts/2020-12-06-setting-up-a-rstudio-server-with-free-software-version/
+
 Download RStudio sever: https://posit.co/download/rstudio-server/
 
 ```
