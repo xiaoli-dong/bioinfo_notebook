@@ -148,8 +148,7 @@ Before using RStudio server, they must have the home directory on the system. Af
 ```
 $ journalctl -t setroubleshoot
 ```
-We searched for any rstudio or rsession lines and none were found after we updated the context to bin_t for the rstudio binaries
-After these steps we were able to confirm that our users were able to login to the rstudio UI/webpage, after first logging into the server via ssh so their home directory would be created.
+We searched for any rstudio or rsession lines and none were found after we updated the context to bin_t for the rstudio binaries. After these steps we were able to confirm that our users were able to login to the rstudio UI/webpage, after first logging into the server via ssh so their home directory would be created.
 
 
 
