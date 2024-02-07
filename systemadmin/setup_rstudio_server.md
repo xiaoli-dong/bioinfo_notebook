@@ -114,12 +114,44 @@ systemctl restart rstudio-server
 ```
 Now, I can access the RStudio server
 
-However, we cannot leave our SELinux in the permissive mode. We set the SELinux into "Enforcing" mode and following some of the instruciton from the post [Support SELinux via configurations and documentation](https://github.com/rstudio/rstudio/issues/4937) we tried the following commands:
+However, we cannot leave our SELinux in the permissive mode. We set the SELinux into "Enforcing" mode. 
+
+Referencing the [forum post](https://github.com/rstudio/rstudio/issues/4937) here: it seems to indicate that the issue is with the selinux context on the rstudio binaries themselves. Typically binaries are installed in the /usr/bin, /usr/sbin, etc., and not the/usr/lib directory, or sub-directories.  By default files/directories created under the /usr/lib directory have a context of lib_t: e.g. from /usr/lib/
+
 
 ```
-semanage fcontext -a -t bin_t '/usr/lib/rstudio-server/bin(/.*)?'
-restorecon -r /usr/lib/rstudio-server/bin/
-systemctl restart rstudio-server.service
+# ls -lZ | grep rstudio
+drwxr-xr-x.  9 root root system_u:object_r:lib_t:s0              190 Feb  1 08:44 rstudio-server
 ```
-Now, we can access the RStudio server again !!!!
+whereas the expected security context of binaries would be bin_t: e.g. from /usr/bin
+```
+# ls -lZ | grep zless
+lrwxrwxrwx. 1 root root    system_u:object_r:bin_t:s0                            6 Aug 12  2018 bzless -> bzmore
+-rwxr-xr-x. 1 root root    system_u:object_r:bin_t:s0                            1802 May 31  2022 xzless
+-rwxr-xr-x. 1 root root    system_u:object_r:bin_t:s0                            2205 Apr 20  2022 zless
+```
+The forum post above seems to be pretty vocal about how this is an issue with the rstudio product (and more how it’s packaged/installed) and is something the developers of rstudio need to address to properly accommodate selinux enabled distributions, it’s not something you could have addressed or updated via a config file as part of your installation.
+As suggested in the article we did the following:
+```
+# Changed the selinux context of the binary files using the semanage command:
+$ semanage fcontext -a -t bin_t '/usr/lib/rstudio-server/bin(/.*)?'
+Restored the permissions using the restorecon command
+$ restorecon -r /usr/lib/rstudio-server/bin/
+Restarted the rstudio server service
+$ systemctl restart rstudio-server.service
+$ systemctl status rstudio-server.service
+Put SELinux back into enforcing mode
+$ getenforce
+$ setenforce 1
+$ sestatus
+```
+Had users login to confirm things were “working” Checked the journald logs for selinux issues
+
+```
+$ journalctl -t setroubleshoot
+```
+We searched for any rstudio or rsession lines and none were found after we updated the context to bin_t for the rstudio binaries
+After these steps we were able to confirm that our users were able to login to the rstudio UI/webpage, after first logging into the server via ssh so their home directory would be created.
+
+
 
