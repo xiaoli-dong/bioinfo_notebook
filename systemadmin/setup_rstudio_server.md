@@ -114,10 +114,7 @@ systemctl restart rstudio-server
 ```
 Now, I can access the RStudio server
 
-However, we cannot leave our SELinux in the permissive mode. We set the SELinux into "Enforcing" mode. 
-
-Referencing the [forum post](https://github.com/rstudio/rstudio/issues/4937) here: it seems to indicate that the issue is with the selinux context on the rstudio binaries themselves. Typically binaries are installed in the /usr/bin, /usr/sbin, etc., and not the/usr/lib directory, or sub-directories.  By default files/directories created under the /usr/lib directory have a context of lib_t: e.g. from /usr/lib/
-
+However, we cannot leave our SELinux in the permissive mode. Referencing the [forum post (https://github.com/rstudio/rstudio/issues/4937) here: it seems to indicate that the issue is with the selinux context on the rstudio binaries themselves. Typically binaries are installed in the /usr/bin, /usr/sbin, etc., and not the/usr/lib directory, or sub-directories.  By default files/directories created under the /usr/lib directory have a context of lib_t: e.g. from /usr/lib/
 
 ```
 # ls -lZ | grep rstudio
