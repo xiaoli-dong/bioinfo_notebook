@@ -1,4 +1,4 @@
-# How to install and configure R and Rstudio server on RHEL 8 Linux System
+# How to install and configure R+Rstudio server on RHEL 8 Linux System
 
 ## Install R from source code
 
@@ -6,38 +6,36 @@ Following the [Posit Documentation](https://docs.posit.co/resources/install-r-so
 ```
 # Enable the Extra Packages for Enterprise Linux (EPEL) repository
 yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-#Enable the CodeReady Linux Builder repository:
-sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+
+# Enable the CodeReady Linux Builder repository:
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+
 # install the build dependencies for R:
 dnf builddep R
 
+# download and extract R
 export R_VERSION=4.3.2
 curl -O https://cran.rstudio.com/src/base/R-4/R-${R_VERSION}.tar.gz
 tar -xzvf R-${R_VERSION}.tar.gz
 cd R-${R_VERSION}
 
+# build and install R
 #--enable-R-shlib	Required to use R with RStudio.
 #--enable-memory-profiling	Enables support for Rprofmem() and tracemem(), used to measure memory use in R code.
  ./configure --prefix=/nfs/APL_Genomics/apps/production/R/R-4.3.2/build --enable-R-shlib --enable-memory-profiling
 make -j 8
-
-export RHOME="${prog}/R"
-#Pre-create a directory (such as ~/R-packages) and set the R_LIBS environment variable before installing R packages. (See sample steps below.)
-export R_LIBS="${prog}/R/R-packages"
-
-# add R to the path
-# cat <<-EOF >> /etc/profile.d/R.sh
-export PATH=/nfs/APL_Genomics/apps/production/R/bin:\$PATH
-EOF
-
-
+make install
 ```
 
-https://docs.posit.co/resources/install-r/
+If you need to install R packages on an individual basis please create a directory within your preferred folder and then use a variable to point R to the directory, so the package can be installed. At the shell prompt, enter the following command:
 
-https://docs.posit.co/resources/install-r-source/
+```
+export RHOME="${prog}/R"
+#Pre-create a directory (such as ~/R-packages) and set the R_LIBS environment variable before installing R packages
+export R_LIBS="${prog}/R/R-packages"
+```
 
-## install RStudio Server
+## Install and configure RStudio server
 https://web.mit.edu/r/current/RStudio/INSTALL
 
 https://higgi13425.github.io/medical_r/posts/2020-12-06-setting-up-a-rstudio-server-with-free-software-version/
