@@ -142,8 +142,7 @@ $ getenforce
 $ setenforce 1
 $ sestatus
 ```
-Had users login to confirm things were “working” Checked the journald logs for selinux issues
-
+Had users login to confirm things were “working” and checked the journald logs for selinux issues
 ```
 $ journalctl -t setroubleshoot
 ```
