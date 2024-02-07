@@ -114,3 +114,12 @@ systemctl restart rstudio-server
 ```
 Now, I can access the RStudio server
 
+However, we cannot leave our SELinux in the permissive mode. We set the SELinux into "Enforcing" mode and following some of the instruciton from the post [Support SELinux via configurations and documentation](https://github.com/rstudio/rstudio/issues/4937) we tried the following commands:
+
+```
+semanage fcontext -a -t bin_t '/usr/lib/rstudio-server/bin(/.*)?'
+restorecon -r /usr/lib/rstudio-server/bin/
+systemctl restart rstudio-server.service
+```
+Now, we can access the RStudio server again !!!!
+
