@@ -106,9 +106,7 @@ pamtester: session has successfully been closed.
 Tried to access RStudio server again with: http://10.106.109.188:8787/ using LDAP username and password, get the same error message:
 "Error: Incorrect or invalid username/password"
 
-
-[Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/15173704481943-Active-Directory-LDAP-user-not-able-to-login-permission-denied-on-PAM-acct-mgmt)
-Because our system is using SELinux, I temporarily set it to permissive:
+Because our system is using SELinux, I temporarily set it to permissive according to the procedures here: [Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/15173704481943-Active-Directory-LDAP-user-not-able-to-login-permission-denied-on-PAM-acct-mgmt)
 
 ```
 setenforce 0
