@@ -35,60 +35,61 @@ export RHOME="${prog}/R"
 export R_LIBS="${prog}/R/R-packages"
 ```
 
-## Install and configure RStudio server
-https://web.mit.edu/r/current/RStudio/INSTALL
-
-https://higgi13425.github.io/medical_r/posts/2020-12-06-setting-up-a-rstudio-server-with-free-software-version/
-
-Download RStudio sever: https://posit.co/download/rstudio-server/
+## Install RStudio server
+Select Your Operating System, download RStudio sever from posit: [https://posit.co/download/rstudio-server](https://posit.co/download/rstudio-server), and install it with the following commands:
 
 ```
-wget wget https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2023.12.1-402-x86_64.rpm
+wget https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2023.12.1-402-x86_64.rpm
 yum install rstudio-server-rhel-2023.12.1-402-x86_64.rpm
+```
+## Configure RStudio server
+I have been referenceing the post [Setting Up a RStudio Server with the Open Source Edition](https://higgi13425.github.io/medical_r/posts/2020-12-06-setting-up-a-rstudio-server-with-free-software-version/) to configure the RStudio server.
+
+Firstly, I edited the configuration file under /etc/rstudio/rserver.conf to include the following line.
 
 ```
-You need to edit the configuration file /etc/rstudio/rserver.conf to include the following line.
-
-As we did earlier, make sure this path is the same path where you installed R.
-
-```
+# this is our local R installation and this R is a symbolink
 rsession-which-r=/nfs/APL_Genomics/apps/production/R/bin/R
-
-if R directory is symbolink
-ERROR Unable to determine real path of R script /nfs/APL_Genomics/apps/production/R/bin/R (system error 13 (Permission denied));
-if point to the realpaht
-ERROR Error reading R script (/nfs/APL_Genomics/apps/production/R/R-4.3.2/build/bin/R), system error 2 (No such file or directory)
-
-After copyt the content in the build directory to /opt/R, it started properly
-
-sudo systemctl daemon-reload 
-sudo systemctl start rstudio-server 
-sudo systemctl enable rstudio-server
-
- firewall-cmd --permanent --zone=public --add-port=8787/tcp
-firewall-cmd --reload
-http://10.106.109.188:8787/
 ```
+Then I tried to start the service:
+```
+systemctl daemon-reload 
+systemctl start rstudio-server 
+systemctl enable rstudio-server
+```
+and I got the following errors
+```
+ERROR Unable to determine real path of R script /nfs/APL_Genomics/apps/production/R/bin/R (system error 13 (Permission denied));
+```
+After some troubleshooting, I find out that "rsession-which-r" cannot point to a symbolink binary. Then, I pointed it to the real path "/nfs/APL_Genomics/apps/production/R/R-4.3.2/build/bin/R", it gave me the different error message
 
+```
+ERROR Error reading R script (/nfs/APL_Genomics/apps/production/R/R-4.3.2/build/bin/R), system error 2 (No such file or directory)
+```
+After some reading, it seems the RStudio are expecting R from /opt/R directory. I copied our R to that directory, Then I can sucessfully start the RStudio service. Then run the following commands
+
+```
+firewall-cmd --permanent --zone=public --add-port=8787/tcp
+firewall-cmd --reload
+```
+With URL: http://10.106.109.188:8787/, we get the login interface:
 ![image](https://github.com/xiaoli-dong/bioinfo_notebook/assets/52679027/3f80250a-e93a-4a90-9c82-f7d0d283e0c6)
 
-When login to the RStudio server with the LDAP username and password, we get the Following error message:
+However, when I login to the RStudio server with the LDAP username and password, we get the Following error message:
+```
+Error: Incorrect or invalid username/password
+```
 
-"Error: Incorrect or invalid username/password"
+According to some of the reading, RStudio connects to LDAP via PAM and then I used pamtester to identify login issues: 
 
-RStudio connects to LDAP via PAM and I used pamtester to identify login issues: 
 ```
 pamtester --verbose rstudio <username> authenticate
 pamtester: authentication failed
 ```
-
-
-
-To integrate RStudio server with PAM. I copied the PAM profile to use with RStudio. Reference link is here [Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/232226708-Using-LDAP-authentication-with-RStudio-Workbench-RStudio-Server-Pro)
+To integrate RStudio server with PAM, I copied the PAM profile to use with RStudio. Reference link is here [Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/232226708-Using-LDAP-authentication-with-RStudio-Workbench-RStudio-Server-Pro)
 
 ```
 cp /etc/pam.d/login /etc/pam.d/rstudio
-
 pamtester --verbose rstudio my_userid authenticate acct_mgmt setcred open_session close_session
 pamtester: invoking pam_start(rstudio, my_userid, ...)
 pamtester: performing operation - authenticate
@@ -103,18 +104,18 @@ pamtester: sucessfully opened a session
 pamtester: performing operation - close_session
 pamtester: session has successfully been closed.
 ```
-Tried to access RStudio server again with: http://10.106.109.188:8787/ using LDAP username and password, get the same error message:
-"Error: Incorrect or invalid username/password"
 
+Then I tried to access RStudio server again with: http://10.106.109.188:8787/ using LDAP username and password, get the same error message:
+```
+Error: Incorrect or invalid username/password
+```
 Because our system is using SELinux, I temporarily set it to permissive according to the procedures here: [Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/15173704481943-Active-Directory-LDAP-user-not-able-to-login-permission-denied-on-PAM-acct-mgmt)
 
 ```
 setenforce 0
 systemctl restart rstudio-server 
 ```
-Now, I can access the RStudio server
-
-However, we cannot leave our SELinux in the permissive mode. Referencing the [forum post](https://github.com/rstudio/rstudio/issues/4937) here: it seems to indicate that the issue is with the selinux context on the rstudio binaries themselves. Typically binaries are installed in the /usr/bin, /usr/sbin, etc., and not the/usr/lib directory, or sub-directories.  By default files/directories created under the /usr/lib directory have a context of lib_t: e.g. from /usr/lib/
+After that, I can sucessfully access the RStudio server. However, we cannot leave our SELinux in the permissive mode. With the help from our IT department, referencing the [forum post](https://github.com/rstudio/rstudio/issues/4937) here: it seems to indicate that the issue is with the selinux context on the rstudio binaries themselves. Typically binaries are installed in the /usr/bin, /usr/sbin, etc., and not the/usr/lib directory, or sub-directories.  By default files/directories created under the /usr/lib directory have a context of lib_t: e.g. from /usr/lib/
 
 ```
 # ls -lZ | grep rstudio
@@ -142,7 +143,8 @@ $ getenforce
 $ setenforce 1
 $ sestatus
 ```
-Had users login to confirm things were “working” and checked the journald logs for selinux issues
+
+Before using RStudio server, they must have the home directory on the system. After that, we had users login to confirm things were “working” and checked the journald logs for selinux issues
 ```
 $ journalctl -t setroubleshoot
 ```
