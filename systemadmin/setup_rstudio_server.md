@@ -72,27 +72,47 @@ http://10.106.109.188:8787/
 
 ![image](https://github.com/xiaoli-dong/bioinfo_notebook/assets/52679027/3f80250a-e93a-4a90-9c82-f7d0d283e0c6)
 
-cannot login with the account, the errors:
+When login to the RStudio server with the LDAP username and password, we get the Following error message:
 
+"Error: Incorrect or invalid username/password"
+
+RStudio connects to LDAP via PAM and I used pamtester to identify login issues: 
 ```
 pamtester --verbose rstudio <username> authenticate
 pamtester: authentication failed
-
 ```
-[Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/232226708-Using-LDAP-authentication-with-RStudio-Workbench-RStudio-Server-Pro)
+
+
+
+To integrate RStudio server with PAM. I copied the PAM profile to use with RStudio. Reference link is here [Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/232226708-Using-LDAP-authentication-with-RStudio-Workbench-RStudio-Server-Pro)
 
 ```
 cp /etc/pam.d/login /etc/pam.d/rstudio
-```
-pamtester --verbose rstudio <username> authenticate
+
+pamtester --verbose rstudio my_userid authenticate acct_mgmt setcred open_session close_session
+pamtester: invoking pam_start(rstudio, my_userid, ...)
+pamtester: performing operation - authenticate
+Password:
 pamtester: successfully authenticated
-cannot login with the account, the errors
+pamtester: performing operation - acct_mgmt
+pamtester: account management done.
+pamtester: performing operation - setcred
+pamtester: credential info has successfully been set.
+pamtester: performing operation - open_session
+pamtester: sucessfully opened a session
+pamtester: performing operation - close_session
+pamtester: session has successfully been closed.
+```
+Tried to access RStudio server again with: http://10.106.109.188:8787/ using LDAP username and password, get the same error message:
+"Error: Incorrect or invalid username/password"
 
-https://support.posit.co/hc/en-us/articles/15173704481943-Active-Directory-LDAP-user-not-able-to-login-permission-denied-on-PAM-acct-mgmt
+
+[Using LDAP authentication with RStudio Workbench / RStudio Server Pro](https://support.posit.co/hc/en-us/articles/15173704481943-Active-Directory-LDAP-user-not-able-to-login-permission-denied-on-PAM-acct-mgmt)
+Because our system is using SELinux, I temporarily set it to permissive:
 
 ```
-/pamtester --verbose rstudio <username> authenticate acct_mgmt setcred open_session close_session
 setenforce 0
-restart the rstudio server
+systemctl restart rstudio-server 
 ```
-It start to work. It means sulinux has been a problem
+Now, I can access the RStudio server
+
