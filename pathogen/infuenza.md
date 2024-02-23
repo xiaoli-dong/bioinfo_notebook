@@ -9,3 +9,6 @@ There are 4 types of influenza viruses, types A, B, C and D. Influenza A and B v
 [For details, please refer to](https://www.who.int/news-room/fact-sheets/detail/influenza-(seasonal)#:~:text=There%20are%204%20types%20of,the%20surface%20of%20the%20virus.)
 
 # Characteristics of influenza viruses
+![image](https://github.com/xiaoli-dong/bioinfo_notebook/assets/52679027/2ef9a7f0-64da-4947-acd0-ba77338cc798)
+
+The image is from: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3074182/
