@@ -202,3 +202,22 @@ Fully update the system. The upgrade process works best when the current system 
 apt-get auto-remove && apt-get clean && apt-get update && apt-get upgrade
  do-release-upgrade
 ```
+
+#clean the previous installation
+```
+apt-get --purge remove "*cublas*" "*cufft*" "*curand*"  "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
+apt-get --purge remove "*nvidia*"
+apt-get autoremove
+reboot
+```
+#install CUDA Toolkit 12.4
+```
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/12.4.1/local_installers/cuda-repo-ubuntu2204-12-4-local_12.4.1-550.54.15-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2204-12-4-local_12.4.1-550.54.15-1_amd64.deb
+sudo cp /var/cuda-repo-ubuntu2204-12-4-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-12-4
+reboot
+```
