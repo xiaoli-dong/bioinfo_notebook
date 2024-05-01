@@ -2,7 +2,7 @@ This is a tutorial on how to install Ubuntu on a dell PC, then configure MinKNOW
 # Install Ubuntu on a Dell desktop configured for the Unified Extensible firmware interface (UEFI) BIOS
 I was using [How to Install Ubuntu Linux on your Dell Computer](https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc) as a reference for Ubuntu setup
 
-Here is the Ubuntu Wiki releases page](https://wiki.ubuntu.com/Releases?_ga=2.181102951.1543743502.1714578127-482619844.1714578127)
+Here is the [Ubuntu Wiki releases page](https://wiki.ubuntu.com/Releases?_ga=2.181102951.1543743502.1714578127-482619844.1714578127)
 
 ## Create a bootable USB flash drive
 1. Download Ubuntu desktop image, the version we are using is [Ubuntu 22.04 LTS](https://ubuntu.com/download/desktop)
