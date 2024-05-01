@@ -195,4 +195,10 @@ Install GPU version of the MinKNOW using the command:
 sudo apt update
 sudo apt install ont-standalone-minknow-gpu-release
 ```
+# upgrade Ubuntu
+Fully update the system. The upgrade process works best when the current system has all the latest updates installed. You should confirm that these commands complete successfully and that no further updates are available. We also suggest rebooting the system after all the updates are applied, to ensure the latest kernel is being run. To upgrade, run the following commands:
 
+```
+apt-get auto-remove && apt-get clean && apt-get update && apt-get upgrade
+ do-release-upgrade
+```
