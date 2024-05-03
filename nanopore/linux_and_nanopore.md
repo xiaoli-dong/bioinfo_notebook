@@ -225,8 +225,7 @@ reboot
 ```
 sudo apt update
 sudo apt install wget
-wget -O- https://cdn.oxfordnanoportal.com/apt/ont-repo.pub | sudo apt-key add -
-echo "deb http://cdn.oxfordnanoportal.com/apt focal-stable non-free" | sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
+
 sudo apt update
 sudo apt install ont-standalone-minknow-gpu-release
 ```
