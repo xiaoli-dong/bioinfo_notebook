@@ -175,15 +175,54 @@ Then, I changed "User=minkow Group=minknow" to "User=root Group=root". After res
 # Troubleshooting reference
 (GPU Calling in MinKNOW)[https://gringer.gitlab.io/presentation-notes/2021/10/08/gpu-calling-in-minknow/]
 
-# Install MinKnow 23.07.5
-This version of the minknow integrated Dorado into the MinKNOW
+# Upgrade to the newer verion of minknow
+## upgrade Ubuntu
+Fully update the system. The upgrade process works best when the current system has all the latest updates installed. You should confirm that these commands complete successfully and that no further updates are available. We also suggest rebooting the system after all the updates are applied, to ensure the latest kernel is being run. To upgrade, run the following commands:
 
 ```
-apt-get purge ont-*
+apt-get auto-remove && apt-get clean && apt-get update && apt-get upgrade do-release-upgrade
+```
+## install CUDA Toolkit and driver 12.6
+
+### clean the previous installation
+```
+apt-get --purge remove -y "*cublas*" "*cufft*" "*curand*"  "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
+apt-get --purge remove -y "*nvidia*"
+apt-get autoremove -y
+reboot
+```
+
+### install CUDA Toolkit 12.6
+```
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/12.6.3/local_installers/cuda-repo-ubuntu2004-12-6-local_12.6.3-560.35.05-1_amd64.deb
+
+cp /var/cuda-repo-ubuntu2004-12-6-local/cuda-F2089CC5-keyring.gpg /usr/share/keyrings/
+dpkg -i cuda-repo-ubuntu2004-12-6-local_12.6.3-560.35.05-1_amd64.deb
+cp /var/cuda-repo-ubuntu2004-12-6-local/cuda-*-keyring.gpg /usr/share/keyrings/
+apt-get update
+#apt-get -y install cuda-toolkit-12-6
+apt-get -y install cuda
+reboot
+```
+You should then **reboot your PC for cuda to take full effect**. Once rebooted, you should confirm that it is working by writing:
+
+```
+nvidia-smi
+nvcc --version
+```
+
+## Install MinKnow Version 24.06.16
+This version of the minknow integrated Dorado into the MinKNOW
+
+### remove the previouse installation
+```
+apt-get purge -y ont-*
 apt-get autoremove
 ```
 
-For Ubuntu20 to add the Oxford Nanopore apt repository, run the command below on a terminal window:
+### For Ubuntu 20 to add the Oxford Nanopore apt repository, run the command below on a terminal window:
 ```
 sudo apt update
 sudo apt install wget
@@ -194,38 +233,5 @@ Install GPU version of the MinKNOW using the command:
 ```
 sudo apt update
 sudo apt install ont-standalone-minknow-gpu-release
-```
-# upgrade Ubuntu
-Fully update the system. The upgrade process works best when the current system has all the latest updates installed. You should confirm that these commands complete successfully and that no further updates are available. We also suggest rebooting the system after all the updates are applied, to ensure the latest kernel is being run. To upgrade, run the following commands:
-
-```
-apt-get auto-remove && apt-get clean && apt-get update && apt-get upgrade
- do-release-upgrade
-```
-
-#clean the previous installation
-```
-apt-get --purge remove "*cublas*" "*cufft*" "*curand*"  "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
-apt-get --purge remove "*nvidia*"
-apt-get autoremove
 reboot
-```
-#install CUDA Toolkit 12.4
-```
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
-sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/12.4.1/local_installers/cuda-repo-ubuntu2204-12-4-local_12.4.1-550.54.15-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu2204-12-4-local_12.4.1-550.54.15-1_amd64.deb
-sudo cp /var/cuda-repo-ubuntu2204-12-4-local/cuda-*-keyring.gpg /usr/share/keyrings/
-sudo apt-get update
-sudo apt-get -y install cuda-toolkit-12-4
-reboot
-```
-# install minknow
-```
-sudo apt update
-sudo apt install wget
-
-sudo apt update
-sudo apt install ont-standalone-minknow-gpu-release
 ```
