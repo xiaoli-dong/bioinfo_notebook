@@ -1,12 +1,10 @@
 
 # Install Ubuntu on a Dell desktop configured for the Unified Extensible firmware interface (UEFI) BIOS
-<h3 style="text-align:center;">H3 that is center aligned</h3>
-<h3 style="text-align:center;">H3 that is center aligned</h3>
-<p style="text-align: center;">Last updated on December 4, 2024</p>
-This is a tutorial on how to install Ubuntu on a dell PC, then configure MinKNOW, CUDA, and enable GPU based basecaller with MinKNOW. 
-I was using [How to Install Ubuntu Linux on your Dell Computer](https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc) as a reference for Ubuntu setup
 
-Here is the [Ubuntu Wiki releases page](https://wiki.ubuntu.com/Releases?_ga=2.181102951.1543743502.1714578127-482619844.1714578127)
+## Last updated on December 4, 2024
+
+This is a tutorial on how to install Ubuntu on a dell PC, then configure MinKNOW, CUDA, and enable GPU based basecaller with MinKNOW. 
+I was using [How to Install Ubuntu Linux on your Dell Computer](https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc) as a reference for Ubuntu setup. Here is the [Ubuntu Wiki releases page](https://wiki.ubuntu.com/Releases?_ga=2.181102951.1543743502.1714578127-482619844.1714578127)
 
 ## Create a bootable USB flash drive
 1. Download Ubuntu desktop image, the version we are using is [Ubuntu 22.04 LTS](https://ubuntu.com/download/desktop)
@@ -179,16 +177,16 @@ Then, I changed "User=minkow Group=minknow" to "User=root Group=root". After res
 # Troubleshooting reference
 (GPU Calling in MinKNOW)[https://gringer.gitlab.io/presentation-notes/2021/10/08/gpu-calling-in-minknow/]
 
-# Upgrade to the newer verion of minknow
-## upgrade Ubuntu
+## Upgrade to the newer verion of minknow
+### upgrade Ubuntu
 Fully update the system. The upgrade process works best when the current system has all the latest updates installed. You should confirm that these commands complete successfully and that no further updates are available. We also suggest rebooting the system after all the updates are applied, to ensure the latest kernel is being run. To upgrade, run the following commands:
 
 ```
 apt-get auto-remove && apt-get clean && apt-get update && apt-get upgrade do-release-upgrade
 ```
-## install CUDA Toolkit and driver 12.6
+### install CUDA Toolkit and driver 12.6
 
-### clean the previous installation
+#### clean the previous installation
 ```
 apt-get --purge remove -y "*cublas*" "*cufft*" "*curand*"  "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
 apt-get --purge remove -y "*nvidia*"
@@ -196,7 +194,7 @@ apt-get autoremove -y
 reboot
 ```
 
-### install CUDA Toolkit 12.6
+#### install CUDA Toolkit 12.6
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -217,16 +215,16 @@ nvidia-smi
 nvcc --version
 ```
 
-## Install MinKnow Version 24.06.16
+### Install MinKnow Version 24.06.16
 This version of the minknow integrated Dorado into the MinKNOW
 
-### remove the previouse installation
+#### remove the previouse installation
 ```
 apt-get purge -y ont-*
 apt-get autoremove
 ```
 
-### For Ubuntu 20 to add the Oxford Nanopore apt repository, run the command below on a terminal window:
+#### For Ubuntu 20 to add the Oxford Nanopore apt repository, run the command below on a terminal window:
 ```
 sudo apt update
 sudo apt install wget
