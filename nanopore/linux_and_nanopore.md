@@ -1,6 +1,9 @@
-# Last updated on December 4, 2024
-This is a tutorial on how to install Ubuntu on a dell PC, then configure MinKNOW, CUDA, and enable GPU based guppy basecaller with MinKNOW  
+
 # Install Ubuntu on a Dell desktop configured for the Unified Extensible firmware interface (UEFI) BIOS
+<h3 style="text-align:center;">H3 that is center aligned</h3>
+<h3 style="text-align:center;">H3 that is center aligned</h3>
+<p style="text-align: center;">Last updated on December 4, 2024</p>
+This is a tutorial on how to install Ubuntu on a dell PC, then configure MinKNOW, CUDA, and enable GPU based basecaller with MinKNOW. 
 I was using [How to Install Ubuntu Linux on your Dell Computer](https://www.dell.com/support/kbdoc/en-ca/000131655/how-to-install-ubuntu-linux-on-your-dell-pc) as a reference for Ubuntu setup
 
 Here is the [Ubuntu Wiki releases page](https://wiki.ubuntu.com/Releases?_ga=2.181102951.1543743502.1714578127-482619844.1714578127)
