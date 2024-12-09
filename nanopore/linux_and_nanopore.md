@@ -6,7 +6,7 @@
 This is a tutorial on how to install Ubuntu on a dell PC, then configure MinKNOW, CUDA, and enable GPU based basecaller with MinKNOW. 
 
 ## Create a bootable USB flash drive
-1. Download Ubuntu desktop image, the version we are using is [Ubuntu 22.04 LTS](https://ubuntu.com/download/desktop)
+1. Download Ubuntu desktop image, the version we are using is [Ubuntu 20.04 LTS](https://ubuntu.com/download/desktop)
 2. Follow the Canonical ubuntu totorials on how to [Create a Bootable USB stick](https://ubuntu.com/tutorials/install-ubuntu-desktop#3-create-a-bootable-usb-stick)
 ## Boot to BIOS setup screens
 Press the F2 key on start up to enter the BIOS setup screens. Ensure that the BIOS is set to UEFI, and disable the Legacy option ROMS, and disable the secure boot. Here are a few reference images on how to do it. Please be aware, your BIOS insterface can be a little different:
