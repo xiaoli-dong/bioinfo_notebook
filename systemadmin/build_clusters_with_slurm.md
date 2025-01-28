@@ -6,7 +6,7 @@ There must be a uniform user and group name space (including UIDs and GIDs) acro
 It is very important to avoid UID and GID below 1000, as defined in the standard configuration file /etc/login.defs by the parameters UID_MIN, UID_MAX, GID_MIN, GID_MAX, see also https://en.wikipedia.org/wiki/User_identifier.
 
 ```
-# run the command on all the nodes (head and computer nodes)
+# run the commands on all the nodes (head and computer nodes)
 export MUNGEUSER=1005
 groupadd -g $MUNGEUSER munge
 useradd  -m -c "MUNGE Uid 'N' Gid Emporium" -d /var/lib/munge -u $MUNGEUSER -g munge  -s /sbin/nologin munge
