@@ -51,9 +51,13 @@ yum install munge munge-libs munge-devel
 sudo yum install rng-tools -y
 sudo rngd -r /dev/urandom 
 sudo /usr/sbin/create-munge-key -r -f
- 
+
+# This would be 1024 bytes of random data printed to munge.key file
 sudo sh -c  "dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key"
 sudo chown munge: /etc/munge/munge.key
+
+# 400 only ower can read the content
+# This ensures that the private key is readable only by the owner, protecting it from being accessed by others.
 sudo chmod 400 /etc/munge/munge.key
 ```
 #### Copy all munge.key to all the nodes and make sure to set the correct ownership and mode on all nodes:
@@ -64,6 +68,9 @@ mkdir /var/log/munge
 chown munge: /etc/munge/munge.key
 chmod 400 /etc/munge/munge.key
 chown -R munge: /etc/munge/ /var/log/munge/
+
+#Grant full access (read, write, and execute) to the owner of the file or directory
+#Deny all access to the group and others.
 chmod 0700 /etc/munge/ /var/log/munge/
 ```
 ### Enable MUNGE authentication service on all the nodes
