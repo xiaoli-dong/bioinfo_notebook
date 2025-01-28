@@ -131,7 +131,7 @@ sudo mkdir /var/spool/slurm/slurmctld
 sudo chown slurm:slurm /var/spool/slurm/slurmctld
 sudo chmod 755 /var/spool/slurm/slurmctld
 sudo mkdir -p /var/spool/slurm/cluster_state
-sudo chown slurm:slurm /var/spool/slurm/cluster_state```
+sudo chown slurm:slurm /var/spool/slurm/cluster_state
  
  #on login node
  firewall-cmd --permanent --zone=public --add-port=6817/udp
