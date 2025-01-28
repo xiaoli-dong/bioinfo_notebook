@@ -115,7 +115,7 @@ cd ..
 rmdir slurm-tmp 
 ```
 
-## install and configure slurm on head node
+### Install and configure slurm on head node
 
 ```
 # get perl-Switch
@@ -149,12 +149,15 @@ sudo touch /var/log/slurmctld.log
 sudo chown slurm:slurm /var/log/slurmctld.log
 sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
+```
 
+we are doing Configless Slurm setup refer to ["Configless" Slurm](https://slurm.schedmd.com/configless_slurm.html)
 
-#we are doing Configless Slurm setup by adding "SlurmctldParameters=enable_configless" to the slurm.conf
-#https://slurm.schedmd.com/configless_slurm.html
+* add "SlurmctldParameters=enable_configless" to the /etc/slurm/slurm.conf
 
+Starting the service:
 
+```
 # enable and start services
 systemctl enable slurmctld
 systemctl enable slurmdbd
@@ -169,6 +172,7 @@ Otherwise, you will get the below error message
 ```
 error: Node xxx appears to have a different slurm.conf than the slurmctld.
 ```
+
 ## Install and configure slurm on all the computing nodes
 ```
 # make a copy of the slurm rpm build from the head node before start
@@ -185,7 +189,7 @@ chown -R slurm:slurm /var/spool/slurm /var/log/slurm
 mkdir -p /run/slurm
 chown -R slurm:slurm /run/slurm
 ```
-firewall will block connections between nodes so in case of cluster with multiple nodes adapt the firewall on the compute nodes, we will disable the firewall on the computing node
+Firewall will block connections between nodes so in case of cluster with multiple nodes adapt the firewall on the compute nodes, we will disable the firewall on the computing node
 
 ```
 systemctl stop firewalld.service
