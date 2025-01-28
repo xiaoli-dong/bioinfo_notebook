@@ -17,7 +17,17 @@ useradd  -m -c "Slurm workload manager" -d /var/lib/slurm -u $SlurmUSER -g slurm
 
 # MUNGE packages installation and configuration
 
+## What is Munge?
+Munge is a service that uses a shared secret to generate cryptographic tokens (authentication tokens) for identifying users and ensuring trust across different nodes. It encrypts and signs the data to prevent unauthorized access and impersonation of users.
+
+## Role of Munge in Slurm
+In a Slurm-based cluster: 
+* Munge provides authentication for communication between different Slurm daemons across nodes in the cluster.
+* Munge ensures that job submissions and commands (e.g., sbatch, scontrol, srun) are securely authenticated.
+* It prevents impersonation attacks, where an unauthorized user might try to execute jobs or control Slurm daemons.
+* Slurm relies on Munge to verify the identity of the user submitting jobs or managing the cluster.
 ## Install MUNGE
+To use Munge with Slurm, the Munge service must be installed, configured, and running on all nodes in the cluster. Here's a step-by-step guide to set up Munge in a Slurm cluster:
 
 ```
 #PowerTools is a CentOS repository. On RHEL 8 we have the CodeReady
