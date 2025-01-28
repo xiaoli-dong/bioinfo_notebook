@@ -1,6 +1,10 @@
-# Hardware optimization for the slurmctld master server
+
+# How to setup a HPC cluster using slurm
+Last updated:  January 28, 2025
+
+## Hardware optimization for the slurmctld master server
 [SchedMD](https://www.schedmd.com/) recommends that the slurmctld server should have only a few, but very fast CPU cores, in order to ensure the best responsiveness. The file system for /var/spool/slurmctld/ should be mounted on the fastest possible disks (SSD or NVMe if possible).
-# Create global user accounts
+## Create global user accounts
 There must be a uniform user and group name space (including UIDs and GIDs) across the cluster. Slurm and MUNGE require consistent UID and GID across all servers and nodes in the cluster, including the slurm and munge user and **make sure that these same users are created identically on all nodes**. This must be done prior to installing RPMs (which would create random UID/GID pairs if these users don’t exist).
 
 It is very important to avoid UID and GID below 1000, as defined in the standard configuration file /etc/login.defs by the parameters UID_MIN, UID_MAX, GID_MIN, GID_MAX, see also https://en.wikipedia.org/wiki/User_identifier.
@@ -15,18 +19,18 @@ groupadd -g $SlurmUSER slurm
 useradd  -m -c "Slurm workload manager" -d /var/lib/slurm -u $SlurmUSER -g slurm  -s /bin/bash slurm
 ```
 
-# MUNGE packages installation and configuration
+## MUNGE packages installation and configuration
 
-## What is Munge?
+### What is Munge?
 Munge is a service that uses a shared secret to generate cryptographic tokens (authentication tokens) for identifying users and ensuring trust across different nodes. It encrypts and signs the data to prevent unauthorized access and impersonation of users.
 
-## Role of Munge in Slurm
+### Role of Munge in Slurm
 In a Slurm-based cluster: 
 * Munge provides authentication for communication between different Slurm daemons across nodes in the cluster.
 * Munge ensures that job submissions and commands (e.g., sbatch, scontrol, srun) are securely authenticated.
 * It prevents impersonation attacks, where an unauthorized user might try to execute jobs or control Slurm daemons.
 * Slurm relies on Munge to verify the identity of the user submitting jobs or managing the cluster.
-## Install MUNGE
+### Install MUNGE
 To use Munge with Slurm, the Munge service must be installed, configured, and running on all nodes in the cluster. Here's a step-by-step guide to set up Munge in a Slurm cluster:
 
 ```
@@ -36,13 +40,13 @@ yum install munge munge-libs munge-devel
 
 ```
 
-## MUNGE configuration and testing
+### MUNGE configuration and testing
 
 * On the Head/Master node (only) create a secret key to be used globally on every node
 * Securely propagate /etc/munge/munge.key (e.g., via SSH) to all other hosts within the same security realm:
 * Make sure to set the correct ownership and mode on all nodes:
 
-### Create MUNGE secret key
+#### Create MUNGE secret key
 ```
 sudo yum install rng-tools -y
 sudo rngd -r /dev/urandom 
@@ -52,7 +56,7 @@ sudo sh -c  "dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key"
 sudo chown munge: /etc/munge/munge.key
 sudo chmod 400 /etc/munge/munge.key
 ```
-### Copy all munge.key to all the nodes and make sure to set the correct ownership and mode on all nodes:
+#### Copy all munge.key to all the nodes and make sure to set the correct ownership and mode on all nodes:
 
 ```
 cp -p /your_path_to/munge.key /etc/munge/
@@ -62,7 +66,7 @@ chmod 400 /etc/munge/munge.key
 chown -R munge: /etc/munge/ /var/log/munge/
 chmod 0700 /etc/munge/ /var/log/munge/
 ```
-## Enable MUNGE authentication service on all the nodes
+### Enable MUNGE authentication service on all the nodes
 
 ```
 sudo systemctl enable munge
@@ -70,15 +74,15 @@ sudo systemctl start munge
 ```
 
 
-# Build slurm on the head node
+## Build slurm on the head node
 
-## Enable slurm accounting database 
+### Enable slurm accounting database 
 
 ```
 sudo yum install mariadb-server mariadb-devel -y
 ```
 
-## Install Slurm prerequisites as well as several optional packages that enable Slurm plugins as described in the Slurm_Quick_Start guide:
+### Install Slurm prerequisites as well as several optional packages that enable Slurm plugins as described in the Slurm_Quick_Start guide:
 ```
 yum install rpm-build gcc python3 openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel munge munge-libs munge-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel gtk2-devel libibmad libibumad perl-Switch perl-ExtUtils-MakeMaker xorg-x11-xauth http-parser-devel json-c-devel
 
@@ -91,7 +95,7 @@ yum install libssh2-devel man2html
 yum install http-parser-devel json-c-devel
 ```
 
-## Build yum rpm package
+### Build yum rpm package
 
 ```
 mkdir slurm-tmp
@@ -104,7 +108,7 @@ cd ..
 rmdir slurm-tmp 
 ```
 
-# install and configure slurm on head node
+## install and configure slurm on head node
 
 ```
 # get perl-Switch
@@ -149,7 +153,7 @@ systemctl enable slurmctld
 systemctl enable slurmdbd
 systemctl start slurmctld.service
 ```
-## Update the slurm.conf file
+### Update the slurm.conf file
 When the slurm.conf file is updated, please run the following command to instruct all Slurm daemons to re-read the configuration file
 ```
 scontrol reconfigure
@@ -158,7 +162,7 @@ Otherwise, you will get the below error message
 ```
 error: Node xxx appears to have a different slurm.conf than the slurmctld.
 ```
-# Install and configure slurm on all the computing nodes
+## Install and configure slurm on all the computing nodes
 ```
 # make a copy of the slurm rpm build from the head node before start
 cd ~/rpmbuild/RPMS/x86_64/
@@ -199,7 +203,7 @@ When using "enable_configles" option, you must configure the slurmd to get its c
  make sure to restart munge.service
 
 
-# Account setup
+## Account setup
 ```
 sacctmgr add User Accounts=all xiaolidong
 sacctmgr add account all Description="all" Organization=all
@@ -207,7 +211,7 @@ sacctmgr show User
 sacctmgr show association
 sacctmgr list account
 ```
-# Restart a node
+## Restart a node
 After a node shutdown and upgrade, the node went to state down. The following commands will bring the node from down state to idle state
 
 ```
@@ -219,7 +223,7 @@ scontrol update nodename=computer_node_name state=resume
 ```
 
 
-# References
+## References
 
 * [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
 * [Slurm administration](https://documentation.tjhsst.edu/services/cluster/slurm-administration)
