@@ -233,7 +233,24 @@ scontrol update nodename=computer_node_name state=idle
 scontrol update nodename=computer_node_name state=resume
 ```
 
+## Help
 
+#Check open and listening port
+```
+ss -tuln
+or
+netstat -tulnp
+```
+# Check listening ports with process info
+```
+lsof -i -P -n
+or
+netstat -tulnp
+```
+list all running daemons
+```
+systemctl list-units --type=service --state=running
+```
 ## References
 
 * [Tasks for Account Coordinators](https://rcic.uci.edu/hpc3/account-control.html)
